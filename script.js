@@ -37,9 +37,7 @@ window.addEventListener("scroll", () => {
 
 // ==========================
 // BACK TO TOP BUTTON
-// ==========================
-
-const topBtn = document.getElementById("topBtn");
+// =========================
 
 window.addEventListener("scroll", () => {
 
@@ -405,12 +403,6 @@ window.onscroll = function () {
 
 };
 
-topBtn.onclick = function () {
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
 
 };
 // Scroll Reveal Animation
@@ -442,8 +434,7 @@ ScrollReveal().reveal(
 );
 // Active Navigation Link
 
-const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll(".nav-links a");
+
 
 window.addEventListener("scroll", () => {
 
