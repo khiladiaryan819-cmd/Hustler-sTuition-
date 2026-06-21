@@ -1275,3 +1275,287 @@ body.dark-mode p{
         transform:translateY(0);
     }
 }
+/* Batch Timing Section */
+
+.timing-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:30px;
+}
+
+.timing-card{
+    background:rgba(255,255,255,0.05);
+    padding:40px;
+    border-radius:25px;
+    text-align:center;
+    transition:0.4s;
+}
+
+.timing-card i{
+    font-size:3rem;
+    color:var(--accent-color);
+    margin-bottom:20px;
+}
+
+.timing-card h3{
+    margin-bottom:15px;
+}
+
+.timing-card p{
+    color:var(--text-color);
+}
+
+.timing-card:hover{
+    transform:translateY(-10px);
+    box-shadow:var(--shadow);
+}
+/* Fee Structure Section */
+
+.fees-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+}
+
+.fee-card{
+    background:rgba(255,255,255,0.05);
+    padding:35px;
+    border-radius:25px;
+    text-align:center;
+    transition:0.4s;
+}
+
+.fee-card h3{
+    margin-bottom:20px;
+}
+
+.fee-card h2{
+    color:var(--accent-color);
+    margin-bottom:15px;
+}
+
+.fee-card p{
+    color:var(--text-color);
+}
+
+.fee-card:hover{
+    transform:translateY(-10px);
+    box-shadow:var(--shadow);
+}
+
+.highlight-card{
+    border:2px solid var(--accent-color);
+}
+/* Location and Contact Section */
+
+.contact-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+    margin-bottom:50px;
+}
+
+.contact-card{
+    background:rgba(255,255,255,0.05);
+    padding:40px 30px;
+    border-radius:25px;
+    text-align:center;
+    transition:0.4s;
+}
+
+.contact-card:hover{
+    transform:translateY(-10px);
+    box-shadow:var(--shadow);
+}
+
+.contact-card i{
+    font-size:2.8rem;
+    color:var(--accent-color);
+    margin-bottom:20px;
+}
+
+.contact-card p{
+    color:var(--text-color);
+}
+
+.map-container{
+    overflow:hidden;
+    border-radius:25px;
+    box-shadow:var(--shadow);
+}
+
+.map-container iframe{
+    border-radius:25px;
+}
+/* Footer */
+
+footer{
+    background:#0f172a;
+    padding:70px 8%;
+    margin-top:100px;
+}
+
+.footer-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:40px;
+}
+
+.footer-box h2,
+.footer-box h3{
+    color:var(--accent-color);
+    margin-bottom:20px;
+}
+
+.footer-box p{
+    color:var(--text-color);
+    line-height:1.8;
+}
+
+.footer-box a{
+    display:block;
+    text-decoration:none;
+    color:var(--text-color);
+    margin-bottom:15px;
+    transition:0.3s;
+}
+
+.footer-box a:hover{
+    color:var(--accent-color);
+    padding-left:8px;
+}
+
+footer hr{
+    margin:40px 0 20px;
+    border:none;
+    height:1px;
+    background:rgba(255,255,255,0.1);
+}
+
+.copyright{
+    text-align:center;
+    color:var(--text-color);
+}
+.admission-form{
+    max-width:700px;
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.admission-form input,
+.admission-form textarea{
+    padding:18px;
+    border:none;
+    border-radius:15px;
+    font-size:16px;
+}
+
+.admission-form textarea{
+    min-height:120px;
+    resize:none;
+}
+
+.admission-form button{
+    padding:18px;
+    border:none;
+    border-radius:15px;
+    cursor:pointer;
+    font-size:18px;
+    background:var(--accent-color);
+    color:white;
+    transition:0.3s;
+}
+
+.admission-form button:hover{
+    transform:translateY(-5px);
+}
+/* Back To Top Button */
+
+#topBtn{
+    position: fixed;
+    bottom: 30px;
+    left: 25px;
+    width: 55px;
+    height: 55px;
+    border: none;
+    border-radius: 50%;
+    background: var(--accent-color);
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    display: none;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+    transition: 0.3s;
+}
+
+#topBtn:hover{
+    transform: translateY(-5px);
+}
+/* Mobile Responsive */
+
+@media (max-width:768px){
+
+    .navbar{
+        padding:15px 5%;
+    }
+
+    .hero{
+        flex-direction:column;
+        text-align:center;
+        gap:40px;
+    }
+
+    .hero-content h1{
+        font-size:2.3rem;
+    }
+
+    .hero-content p{
+        font-size:0.95rem;
+    }
+
+    .hero-buttons{
+        justify-content:center;
+        flex-wrap:wrap;
+    }
+
+    .section-title h2{
+        font-size:2rem;
+    }
+
+    .glass-card,
+    .glass-card-large{
+        width:100%;
+    }
+
+    .course-card,
+    .facility-card,
+    .teacher-card,
+    .fee-card,
+    .contact-card{
+        padding:25px;
+    }
+
+}
+/* Active Navigation */
+
+.nav-links a.active{
+    color: var(--accent-color);
+    font-weight: 600;
+}
+html{
+    scroll-behavior: smooth;
+}
+/* Sticky Navbar */
+
+.navbar{
+    transition:0.4s;
+}
+
+.navbar.sticky{
+    padding:12px 8%;
+    backdrop-filter:blur(20px);
+    box-shadow:0 5px 20px rgba(0,0,0,0.15);
+}
