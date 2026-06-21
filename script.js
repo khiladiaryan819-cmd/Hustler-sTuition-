@@ -33,17 +33,6 @@ window.addEventListener("scroll", () => {
 });
 
 
-// ==========================
-// DARK MODE
-// ==========================
-
-const darkBtn = document.getElementById("dark-mode");
-
-darkBtn.addEventListener("click", () => {
-
-    document.body.classList.toggle("dark-mode");
-
-});
 
 
 // ==========================
