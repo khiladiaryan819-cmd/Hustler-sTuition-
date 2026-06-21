@@ -239,24 +239,7 @@ header{
     gap:15px;
 }
 
-/* Dark Mode Button */
-#dark-mode{
-    width:45px;
-    height:45px;
-    border:none;
-    border-radius:50%;
-    cursor:pointer;
-    background:rgba(255,255,255,0.1);
-    color:var(--accent-color);
-    font-size:1rem;
-    transition:var(--transition);
-}
 
-#dark-mode:hover{
-    transform:rotate(180deg);
-    background:var(--accent-color);
-    color:black;
-}
 
 /* Mobile Menu Icon */
 .menu-btn{
