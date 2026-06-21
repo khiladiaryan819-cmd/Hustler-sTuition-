@@ -370,3 +370,129 @@ revealElements.forEach(element => {
     element.style.transition = "0.8s ease";
 
 });
+document.getElementById("admissionForm")
+.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    let name = document.getElementById("name").value;
+    let studentClass = document.getElementById("class").value;
+    let board = document.getElementById("board").value;
+    let mobile = document.getElementById("mobile").value;
+    let message = document.getElementById("message").value;
+
+    let whatsappMessage =
+`New Admission Enquiry
+
+Student Name: ${name}
+
+Class: ${studentClass}
+
+Board: ${board}
+
+Mobile Number: ${mobile}
+
+Message: ${message}`;
+
+    let url =
+"https://wa.me/919172348904?text="
++ encodeURIComponent(whatsappMessage);
+
+    window.open(url, "_blank");
+
+});
+// Back To Top Button
+
+let topBtn = document.getElementById("topBtn");
+
+window.onscroll = function () {
+
+    if (document.documentElement.scrollTop > 300) {
+        topBtn.style.display = "block";
+    }
+    else {
+        topBtn.style.display = "none";
+    }
+
+};
+
+topBtn.onclick = function () {
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+};
+// Scroll Reveal Animation
+
+ScrollReveal({
+    distance: "80px",
+    duration: 2000,
+    delay: 200
+});
+
+ScrollReveal().reveal(
+    ".hero-content, .hero-image, .section-title",
+    { origin: "top" }
+);
+
+ScrollReveal().reveal(
+    ".course-card, .facility-card, .teacher-card, .achievement-card, .fee-card, .contact-card",
+    { origin: "bottom", interval: 100 }
+);
+
+ScrollReveal().reveal(
+    ".about-content, .glass-card-large",
+    { origin: "left" }
+);
+
+ScrollReveal().reveal(
+    ".about-card",
+    { origin: "right" }
+);
+// Active Navigation Link
+
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll(".nav-links a");
+
+window.addEventListener("scroll", () => {
+
+    let current = "";
+
+    sections.forEach(section => {
+
+        const sectionTop = section.offsetTop - 150;
+        const sectionHeight = section.clientHeight;
+
+        if (pageYOffset >= sectionTop) {
+            current = section.getAttribute("id");
+        }
+
+    });
+
+    navLinks.forEach(link => {
+
+        link.classList.remove("active");
+
+        if (link.getAttribute("href") === "#" + current) {
+            link.classList.add("active");
+        }
+
+    });
+
+});
+// Sticky Navbar Effect
+
+window.addEventListener("scroll", () => {
+
+    const navbar = document.querySelector(".navbar");
+
+    if(window.scrollY > 50){
+        navbar.classList.add("sticky");
+    }
+    else{
+        navbar.classList.remove("sticky");
+    }
+
+});
