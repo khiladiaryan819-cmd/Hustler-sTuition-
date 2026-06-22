@@ -1559,36 +1559,14 @@ img{
     height: auto;
     display: block;
 }
+@media (max-width:768px){
 
-section{
-    width: 100%;
-}
-
-.gallery-container,
-.contact-container,
-.footer-container,
-.teachers-container,
-.courses-container,
-.about-container{
-    width: 100%;
-}
-
-@media (min-width: 768px){
-
-    .gallery-container,
-    .contact-container,
-    .footer-container{
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+    .nav-links{
+        display:none;
+        flex-direction:column;
     }
 
-}
-@media (min-width: 768px){
-
-    .gallery-container{
-        display: grid !important;
-        grid-template-columns: 1fr !important;
+    .nav-links.active{
+        display:flex;
     }
-
 }
