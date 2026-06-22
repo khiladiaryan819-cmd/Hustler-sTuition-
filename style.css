@@ -1570,3 +1570,33 @@ img{
         display:flex;
     }
 }
+#admissionForm{
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#admissionForm input,
+#admissionForm textarea{
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+#admissionForm textarea{
+    height: 120px;
+    resize: none;
+}
+
+#admissionForm button{
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #007bff;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}

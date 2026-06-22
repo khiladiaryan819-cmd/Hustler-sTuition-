@@ -357,8 +357,9 @@ revealElements.forEach(element => {
     element.style.transition = "0.8s ease";
 
 });
-document.getElementById("admissionForm")
-.addEventListener("submit", function(e){
+const form = document.getElementById("admissionForm");
+
+form.addEventListener("submit", function (e) {
 
     e.preventDefault();
 
@@ -369,23 +370,21 @@ document.getElementById("admissionForm")
     let message = document.getElementById("message").value;
 
     let whatsappMessage =
-`New Admission Enquiry
+`🎓 New Admission Enquiry
 
-Student Name: ${name}
-
-Class: ${studentClass}
-
-Board: ${board}
-
-Mobile Number: ${mobile}
-
-Message: ${message}`;
+👤 Name: ${name}
+🏫 Class: ${studentClass}
+📚 Board: ${board}
+📱 Mobile: ${mobile}
+📝 Message: ${message}`;
 
     let url =
-"https://wa.me/917038742339?text="
-+ encodeURIComponent(whatsappMessage);
+"https://wa.me/917038742339?text=" +
+encodeURIComponent(whatsappMessage);
 
     window.open(url, "_blank");
+
+    form.reset();
 
 });
 // Back To Top Button
