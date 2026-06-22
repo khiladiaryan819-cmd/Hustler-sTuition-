@@ -1600,3 +1600,10 @@ img{
     font-size: 18px;
     cursor: pointer;
 }
+.whatsapp-btn,
+.call-btn,
+.instagram-btn,
+.location-btn{
+    display: block;
+    margin-bottom: 15px;
+}
