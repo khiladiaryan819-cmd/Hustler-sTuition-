@@ -410,8 +410,8 @@ if (typeof ScrollReveal !== "undefined") {
 
     ScrollReveal({
         distance: "80px",
-        duration: 2000,
-        delay: 200
+        duration: 100,
+        delay: 80
     });
 
     ScrollReveal().reveal(
