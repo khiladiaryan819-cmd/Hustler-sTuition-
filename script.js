@@ -282,39 +282,28 @@ if (typingText) {
     typeEffect();
 
 }
+const testimonials = document.querySelectorAll(".testimonial-card");
 
-// ==========================
-// TESTIMONIAL SLIDER
-// ==========================
+let currentSlide = 0;
 
-const testimonials =
-    document.querySelectorAll(".testimonial-card");
+function testimonialSlider(){
 
-if (testimonials.length > 0) {
+    testimonials.forEach(card=>{
+        card.classList.remove("active");
+    });
 
-    let currentSlide = 0;
+    testimonials[currentSlide].classList.add("active");
 
-    setInterval(() => {
+    currentSlide++;
 
-        testimonials.forEach(card => {
-
-            card.style.opacity = "0.4";
-            card.style.transform = "scale(0.95)";
-
-        });
-
-        testimonials[currentSlide].style.opacity = "1";
-        testimonials[currentSlide].style.transform = "scale(1)";
-
-        currentSlide++;
-
-        if (currentSlide >= testimonials.length) {
-            currentSlide = 0;
-        }
-
-    }, 2500);
-
+    if(currentSlide >= testimonials.length){
+        currentSlide = 0;
+    }
 }
+
+testimonialSlider();
+
+setInterval(testimonialSlider,3000);
 
 // ==========================
 // SCROLL REVEAL
@@ -410,8 +399,8 @@ if (typeof ScrollReveal !== "undefined") {
 
     ScrollReveal({
         distance: "80px",
-        duration: 100,
-        delay: 80
+        duration: 800,
+        delay: 100
     });
 
     ScrollReveal().reveal(
@@ -435,3 +424,20 @@ if (typeof ScrollReveal !== "undefined") {
     );
 
 }
+// Courses Columns Slider Animation
+
+const courseCards = document.querySelectorAll(".course-card");
+
+window.addEventListener("scroll", () => {
+
+    courseCards.forEach(card => {
+
+        const cardTop = card.getBoundingClientRect().top;
+
+        if(cardTop < window.innerHeight - 100){
+            card.classList.add("show");
+        }
+
+    });
+
+});
