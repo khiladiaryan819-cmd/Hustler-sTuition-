@@ -309,6 +309,33 @@ header{
     line-height:1.2;
     margin-bottom:20px;
 }
+.hero{
+    justify-content:center !important;
+    text-align:center !important;
+}
+
+.hero-content{
+    text-align:center !important;
+}
+
+.hero-content p{
+    margin-left:auto !important;
+    margin-right:auto !important;
+}
+
+.hero-buttons{
+    justify-content:center !important;
+}
+
+.hero-image{
+    display:flex !important;
+    justify-content:center !important;
+}
+
+.glass-card{
+    max-width:500px;
+    margin:auto;
+}
 
 .hero-content h1 span{
     color:var(--accent-color);
@@ -1607,30 +1634,59 @@ img{
     display: block;
     margin-bottom: 15px;
 }
+/* HERO SECTION FIX */
+
 .hero{
-    justify-content:center !important;
-    text-align:center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
 }
 
 .hero-content{
-    text-align:center !important;
-}
-
-.hero-content p{
-    margin-left:auto !important;
-    margin-right:auto !important;
-}
-
-.hero-buttons{
-    justify-content:center !important;
+    width: 100% !important;
 }
 
 .hero-image{
-    display:flex !important;
-    justify-content:center !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
 }
 
-.glass-card{
-    max-width:500px;
-    margin:auto;
+.glass-card,
+.glass-card-large{
+    margin: auto !important;
+}
+
+
+/* CONTACT SECTION FIX */
+
+.contact-container,
+.contact-content,
+.contact-cards{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+.contact-card{
+    width: 100% !important;
+    max-width: 400px !important;
+    margin-bottom: 25px !important;
+}
+
+/* FOOTER FIX */
+
+.footer-container{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+}
+
+.footer-section{
+    width: 100% !important;
+    margin-bottom: 25px !important;
 }
