@@ -1658,35 +1658,40 @@ img{
 .glass-card-large{
     margin: auto !important;
 }
-
-
-/* CONTACT SECTION FIX */
-
-.contact-container,
-.contact-content,
-.contact-cards{
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    width: 100% !important;
+/* HERO SECTION FIX */
+.hero{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 50px;
 }
 
-.contact-card{
-    width: 100% !important;
-    max-width: 400px !important;
-    margin-bottom: 25px !important;
+.hero-content{
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
 }
 
-/* FOOTER FIX */
-
-.footer-container{
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    text-align: center !important;
+.hero-content p{
+    margin: auto;
 }
 
-.footer-section{
-    width: 100% !important;
-    margin-bottom: 25px !important;
+.hero-buttons{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.hero-image{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.glass-card{
+    margin: auto;
 }
