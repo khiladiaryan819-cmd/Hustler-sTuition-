@@ -1607,3 +1607,30 @@ img{
     display: block;
     margin-bottom: 15px;
 }
+.hero{
+    justify-content:center !important;
+    text-align:center !important;
+}
+
+.hero-content{
+    text-align:center !important;
+}
+
+.hero-content p{
+    margin-left:auto !important;
+    margin-right:auto !important;
+}
+
+.hero-buttons{
+    justify-content:center !important;
+}
+
+.hero-image{
+    display:flex !important;
+    justify-content:center !important;
+}
+
+.glass-card{
+    max-width:500px;
+    margin:auto;
+}
