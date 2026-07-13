@@ -1,443 +1,793 @@
-// ==========================
-// LOADER
-// ==========================
+/*==================================================
+        HUSTLER'S TUITION
+        SCRIPT.JS PART - 1
+==================================================*/
 
-window.addEventListener("load", () => {
+/*==============================
+        DOM READY
+==============================*/
 
-    const loader = document.querySelector(".loader");
+document.addEventListener("DOMContentLoaded",()=>{
 
-    if (loader) {
-        setTimeout(() => {
-            loader.style.display = "none";
-        }, 1000);
-    }
+/*==============================
+        LOADER
+==============================*/
 
-});
+window.addEventListener("load",()=>{
 
-// ==========================
-// ELEMENTS
-// ==========================
+const loader=document.getElementById("loader");
 
-const topBtn = document.getElementById("topBtn");
-const menuBtn = document.querySelector(".menu-btn");
-const navLinks = document.querySelector(".nav-links");
-const navbar = document.querySelector(".navbar");
+if(loader){
 
-const sections = document.querySelectorAll("section");
-const navItems = document.querySelectorAll(".nav-links a");
+loader.style.opacity="0";
 
-// ==========================
-// SCROLL EVENTS
-// ==========================
+setTimeout(()=>{
 
-window.addEventListener("scroll", () => {
+loader.style.display="none";
 
-    // Progress Bar
-    const progressBar = document.getElementById("progress-bar");
-
-    if (progressBar) {
-        let scrollTop = document.documentElement.scrollTop;
-
-        let scrollHeight =
-            document.documentElement.scrollHeight -
-            document.documentElement.clientHeight;
-
-        let progress = (scrollTop / scrollHeight) * 100;
-
-        progressBar.style.width = progress + "%";
-    }
-
-    // Back To Top Button
-    if (topBtn) {
-        if (window.scrollY > 300) {
-            topBtn.style.display = "block";
-        } else {
-            topBtn.style.display = "none";
-        }
-    }
-
-    // Sticky Navbar
-    if (navbar) {
-        if (window.scrollY > 50) {
-            navbar.classList.add("sticky");
-        } else {
-            navbar.classList.remove("sticky");
-        }
-    }
-
-    // Active Navigation
-    let current = "";
-
-    sections.forEach(section => {
-
-        const sectionTop = section.offsetTop - 150;
-
-        if (window.pageYOffset >= sectionTop) {
-            current = section.getAttribute("id");
-        }
-
-    });
-
-    navItems.forEach(link => {
-
-        link.classList.remove("active");
-
-        if (link.getAttribute("href") === "#" + current) {
-            link.classList.add("active");
-        }
-
-    });
-
-});
-
-// ==========================
-// BACK TO TOP
-// ==========================
-
-if (topBtn) {
-
-    topBtn.addEventListener("click", () => {
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-    });
+},700);
 
 }
 
-// ==========================
-// MOBILE MENU
-// ==========================
+});
 
-if (menuBtn && navLinks) {
+/*==============================
+      AOS ANIMATION
+==============================*/
 
-    menuBtn.addEventListener("click", () => {
+if(typeof AOS!=="undefined"){
 
-        navLinks.classList.toggle("active");
+AOS.init({
 
-    });
+duration:1000,
 
-}
+once:true,
 
-// ==========================
-// COUNTER ANIMATION
-// ==========================
+offset:120,
 
-const counters = document.querySelectorAll(".counter");
-
-counters.forEach(counter => {
-
-    const target = Number(counter.getAttribute("data-target"));
-
-    counter.innerText = "0";
-
-    const updateCounter = () => {
-
-        const current = Number(counter.innerText);
-
-        const increment = Math.ceil(target / 100);
-
-        if (current < target) {
-
-            counter.innerText =
-                Math.min(current + increment, target);
-
-            setTimeout(updateCounter, 30);
-
-        } else {
-
-            counter.innerText = target;
-
-        }
-
-    };
-
-    updateCounter();
+easing:"ease-in-out"
 
 });
 
-// ==========================
-// SMOOTH SCROLL
-// ==========================
+}
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+/*==============================
+      TYPING EFFECT
+==============================*/
 
-    anchor.addEventListener("click", function (e) {
+if(document.querySelector(".typing")){
 
-        const target = document.querySelector(
-            this.getAttribute("href")
-        );
+new Typed(".typing",{
 
-        if (target) {
+strings:[
 
-            e.preventDefault();
+"Best Coaching Classes",
 
-            target.scrollIntoView({
-                behavior: "smooth"
-            });
+"KG to 12th Classes",
 
-            if (navLinks) {
-                navLinks.classList.remove("active");
-            }
+"State Board",
 
-        }
+"CBSE Board",
 
-    });
+"NCERT",
+
+"Expert Teachers",
+
+"Offline Coaching"
+
+],
+
+typeSpeed:70,
+
+backSpeed:45,
+
+backDelay:1700,
+
+loop:true
 
 });
 
-// ==========================
-// FAQ ACCORDION
-// ==========================
+}
 
-const faqItems = document.querySelectorAll(".faq-item");
+/*==============================
+        MOBILE MENU
+==============================*/
 
-faqItems.forEach(item => {
+const menuBtn=document.getElementById("menu-btn");
 
-    item.addEventListener("click", () => {
+const navbar=document.getElementById("navbar");
 
-        const answer = item.querySelector("p");
+if(menuBtn && navbar){
 
-        if (!answer) return;
+menuBtn.addEventListener("click",()=>{
 
-        if (answer.style.display === "block") {
+navbar.classList.toggle("active");
 
-            answer.style.display = "none";
-
-        } else {
-
-            answer.style.display = "block";
-
-        }
-
-    });
+menuBtn.classList.toggle("active");
 
 });
 
-// ==========================
-// TYPING EFFECT
-// ==========================
-
-const typingText = document.querySelector(".typing-text");
-
-if (typingText) {
-
-    const texts = [
-        "Quality Offline Coaching For KG To 12th",
-        "State Board | CBSE | NCERT",
-        "Morning & Evening Batches Available",
-        "Experienced Teachers & Personal Attention"
-    ];
-
-    let textIndex = 0;
-    let charIndex = 0;
-
-    function typeEffect() {
-
-        if (charIndex < texts[textIndex].length) {
-
-            typingText.textContent +=
-                texts[textIndex].charAt(charIndex);
-
-            charIndex++;
-
-            setTimeout(typeEffect, 80);
-
-        } else {
-
-            setTimeout(eraseEffect, 2000);
-
-        }
-
-    }
-
-    function eraseEffect() {
-
-        if (charIndex > 0) {
-
-            typingText.textContent =
-                texts[textIndex].substring(0, charIndex - 1);
-
-            charIndex--;
-
-            setTimeout(eraseEffect, 40);
-
-        } else {
-
-            textIndex++;
-
-            if (textIndex >= texts.length) {
-                textIndex = 0;
-            }
-
-            setTimeout(typeEffect, 500);
-
-        }
-
-    }
-
-    typingText.textContent = "";
-    typeEffect();
-
-}
-const testimonials = document.querySelectorAll(".testimonial-card");
-
-let currentSlide = 0;
-
-function testimonialSlider(){
-
-    testimonials.forEach(card=>{
-        card.classList.remove("active");
-    });
-
-    testimonials[currentSlide].classList.add("active");
-
-    currentSlide++;
-
-    if(currentSlide >= testimonials.length){
-        currentSlide = 0;
-    }
 }
 
-testimonialSlider();
+/*==============================
+      CLOSE MENU
+==============================*/
 
-setInterval(testimonialSlider,3000);
+document.querySelectorAll("#navbar a")
 
-// ==========================
-// SCROLL REVEAL
-// ==========================
+.forEach(link=>{
 
-const revealElements = document.querySelectorAll(
-    ".course-card, .teacher-card, .facility-card, .achievement-card, .testimonial-card, .gallery-card, .why-card, .board-card, .fee-card, .contact-card"
+link.addEventListener("click",()=>{
+
+navbar.classList.remove("active");
+
+menuBtn.classList.remove("active");
+
+});
+
+});
+
+/*==============================
+      SMOOTH SCROLL
+==============================*/
+
+document.querySelectorAll('a[href^="#"]')
+
+.forEach(anchor=>{
+
+anchor.addEventListener("click",function(e){
+
+const target=document.querySelector(
+
+this.getAttribute("href")
+
 );
 
-revealElements.forEach(element => {
+if(target){
 
-    element.style.opacity = "0";
-    element.style.transform = "translateY(50px)";
-    element.style.transition = "0.8s ease";
+e.preventDefault();
+
+target.scrollIntoView({
+
+behavior:"smooth"
+
+});
+
+}
 
 });
 
-function revealOnScroll() {
-
-    revealElements.forEach(element => {
-
-        const windowHeight = window.innerHeight;
-        const revealTop =
-            element.getBoundingClientRect().top;
-
-        const revealPoint = 120;
-
-        if (revealTop < windowHeight - revealPoint) {
-
-            element.style.opacity = "1";
-            element.style.transform = "translateY(0)";
-
-        }
-
-    });
-
-}
-
-window.addEventListener("scroll", revealOnScroll);
-revealOnScroll();
-
-
-// ==========================
-// ADMISSION FORM + WHATSAPP
-// ==========================
-
-const admissionForm = document.getElementById("admissionForm");
-
-if (admissionForm) {
-
-    admissionForm.addEventListener("submit", function (e) {
-
-        e.preventDefault();
-
-        const name = document.getElementById("name").value.trim();
-        const studentClass = document.getElementById("class").value.trim();
-        const board = document.getElementById("board").value.trim();
-        const mobile = document.getElementById("mobile").value.trim();
-        const message = document.getElementById("message").value.trim();
-
-        if (!/^[0-9]{10}$/.test(mobile)) {
-            alert("Please enter a valid 10 digit mobile number");
-            return;
-        }
-
-        const whatsappMessage =
-`🎓 New Admission Enquiry
-
-👤 Student Name: ${name}
-🏫 Class: ${studentClass}
-📚 Board: ${board}
-📱 Mobile: ${mobile}
-
-✍ Message:
-${message}`;
-
-        const whatsappURL =
-            `https://wa.me/917038742339?text=${encodeURIComponent(whatsappMessage)}`;
-
-        window.open(whatsappURL, "_blank");
-
-        admissionForm.reset();
-
-    });
-
-}
-
-// ==========================
-// SCROLLREVEAL LIBRARY
-// ==========================
-
-if (typeof ScrollReveal !== "undefined") {
-
-    ScrollReveal({
-        distance: "80px",
-        duration: 800,
-        delay: 100
-    });
-
-    ScrollReveal().reveal(
-        ".hero-content, .hero-image, .section-title",
-        { origin: "top" }
-    );
-
-    ScrollReveal().reveal(
-        ".course-card, .facility-card, .teacher-card, .achievement-card, .fee-card, .contact-card",
-        { origin: "bottom", interval: 100 }
-    );
-
-    ScrollReveal().reveal(
-        ".about-content, .glass-card-large",
-        { origin: "left" }
-    );
-
-    ScrollReveal().reveal(
-        ".about-card",
-        { origin: "right" }
-    );
-
-}
-// Courses Columns Slider Animation
-
-const courseCards = document.querySelectorAll(".course-card");
-
-window.addEventListener("scroll", () => {
-
-    courseCards.forEach(card => {
-
-        const cardTop = card.getBoundingClientRect().top;
-
-        if(cardTop < window.innerHeight - 100){
-            card.classList.add("show");
-        }
-
-    });
+});
 
 });
+/*==================================================
+        SCRIPT.JS PART - 2
+==================================================*/
+
+/*==============================
+        HEADER
+==============================*/
+
+const header=document.getElementById("header");
+
+/*==============================
+    PROGRESS BAR
+==============================*/
+
+const progressBar=document.getElementById("progress-bar");
+
+/*==============================
+    BACK TO TOP
+==============================*/
+
+const backToTop=document.getElementById("backToTop");
+
+/*==============================
+      NAV LINKS
+==============================*/
+
+const sections=document.querySelectorAll("section");
+
+const navLinks=document.querySelectorAll("#navbar a");
+
+/*==============================
+    SCROLL EVENTS
+==============================*/
+
+window.addEventListener("scroll",()=>{
+
+const scrollTop=window.pageYOffset;
+
+/*==============================
+      HEADER SHADOW
+==============================*/
+
+if(header){
+
+if(scrollTop>50){
+
+header.classList.add("scrolled");
+
+}else{
+
+header.classList.remove("scrolled");
+
+}
+
+}
+
+/*==============================
+    SCROLL PROGRESS
+==============================*/
+
+if(progressBar){
+
+const height=
+
+document.documentElement.scrollHeight-
+
+document.documentElement.clientHeight;
+
+const progress=(scrollTop/height)*100;
+
+progressBar.style.width=progress+"%";
+
+}
+
+/*==============================
+      BACK TO TOP
+==============================*/
+
+if(backToTop){
+
+if(scrollTop>450){
+
+backToTop.style.display="flex";
+
+}else{
+
+backToTop.style.display="none";
+
+}
+
+}
+
+/*==============================
+      ACTIVE NAVBAR
+==============================*/
+
+let current="";
+
+sections.forEach(section=>{
+
+const top=section.offsetTop-180;
+
+const height=section.offsetHeight;
+
+if(scrollTop>=top && scrollTop<top+height){
+
+current=section.id;
+
+}
+
+});
+
+navLinks.forEach(link=>{
+
+link.classList.remove("active");
+
+if(link.getAttribute("href")==="#"+current){
+
+link.classList.add("active");
+
+}
+
+});
+
+});
+
+/*==============================
+    BACK TO TOP CLICK
+==============================*/
+
+if(backToTop){
+
+backToTop.addEventListener("click",()=>{
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+});
+
+}
+
+/*==============================
+      SCROLL REVEAL
+==============================*/
+
+const revealItems=document.querySelectorAll(
+
+".course-card,.teacher-card,.project-card,.gallery-item,.facility-card,.testimonial-card,.contact-card"
+
+);
+
+const revealObserver=new IntersectionObserver(
+
+(entries)=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add("fade-up");
+
+}
+
+});
+
+},
+
+{
+
+threshold:.15
+
+}
+
+);
+
+revealItems.forEach(item=>{
+
+revealObserver.observe(item);
+
+});
+/*==================================================
+        SCRIPT.JS PART - 3
+==================================================*/
+
+/*==============================
+        VANILLA TILT
+==============================*/
+
+if(typeof VanillaTilt!=="undefined"){
+
+VanillaTilt.init(
+
+document.querySelectorAll(
+
+".course-card,.teacher-card,.project-card,.skill-card,.facility-card,.testimonial-card,.contact-card,.why-card"
+
+),
+
+{
+
+max:10,
+
+speed:400,
+
+glare:true,
+
+"max-glare":0.20,
+
+scale:1.02
+
+}
+
+);
+
+}
+
+/*==============================
+      RIPPLE EFFECT
+==============================*/
+
+document.querySelectorAll(".btn").forEach(button=>{
+
+button.addEventListener("click",function(e){
+
+const circle=document.createElement("span");
+
+const diameter=Math.max(
+
+this.clientWidth,
+
+this.clientHeight
+
+);
+
+const radius=diameter/2;
+
+circle.style.width=
+
+circle.style.height=
+
+`${diameter}px`;
+
+circle.style.left=
+
+`${e.offsetX-radius}px`;
+
+circle.style.top=
+
+`${e.offsetY-radius}px`;
+
+circle.classList.add("ripple");
+
+const ripple=
+
+this.querySelector(".ripple");
+
+if(ripple){
+
+ripple.remove();
+
+}
+
+this.appendChild(circle);
+
+});
+
+});
+
+/*==============================
+      COUNTER
+==============================*/
+
+const counters=document.querySelectorAll(".counter");
+
+const counterObserver=new IntersectionObserver(
+
+(entries)=>{
+
+entries.forEach(entry=>{
+
+if(!entry.isIntersecting)return;
+
+const counter=entry.target;
+
+const target=+counter.dataset.target;
+
+let current=0;
+
+const increment=Math.ceil(target/100);
+
+const update=()=>{
+
+current+=increment;
+
+if(current>=target){
+
+counter.innerText=target+"+";
+
+}else{
+
+counter.innerText=current+"+";
+
+requestAnimationFrame(update);
+
+}
+
+};
+
+update();
+
+counterObserver.unobserve(counter);
+
+});
+
+},
+
+{
+
+threshold:.5
+
+}
+
+);
+
+counters.forEach(counter=>{
+
+counterObserver.observe(counter);
+
+});
+
+/*==============================
+      FAQ ACCORDION
+==============================*/
+
+document.querySelectorAll(".faq-item")
+
+.forEach(item=>{
+
+const question=
+
+item.querySelector(".faq-question");
+
+if(question){
+
+question.addEventListener("click",()=>{
+
+document.querySelectorAll(".faq-item")
+
+.forEach(f=>{
+
+if(f!==item){
+
+f.classList.remove("active");
+
+}
+
+});
+
+item.classList.toggle("active");
+
+});
+
+}
+
+});
+
+/*==============================
+      CURRENT YEAR
+==============================*/
+
+const year=document.getElementById("year");
+
+if(year){
+
+year.textContent=
+
+new Date().getFullYear();
+
+}
+
+/*==============================
+    CONSOLE MESSAGE
+==============================*/
+
+console.clear();
+
+console.log(
+
+"%c🎓 Hustler's Tuition",
+
+"color:#2563eb;font-size:22px;font-weight:bold;"
+
+);
+
+console.log(
+
+"%cDesigned & Developed by Aryan Rohit Khiladi",
+
+"color:#22c55e;font-size:14px;"
+
+);
+/*==================================================
+        SCRIPT.JS PART - 4 (FINAL)
+==================================================*/
+
+/*==============================
+        DARK MODE
+==============================*/
+
+const themeBtn=document.getElementById("theme-toggle");
+
+if(themeBtn){
+
+const savedTheme=localStorage.getItem("theme");
+
+if(savedTheme==="light"){
+
+document.body.classList.add("light");
+
+}
+
+themeBtn.addEventListener("click",()=>{
+
+document.body.classList.toggle("light");
+
+localStorage.setItem(
+
+"theme",
+
+document.body.classList.contains("light")
+
+? "light"
+
+: "dark"
+
+);
+
+});
+
+}
+
+/*==============================
+      CONTACT FORM
+==============================*/
+
+const contactForm=document.querySelector(".contact-form");
+
+if(contactForm){
+
+contactForm.addEventListener("submit",(e)=>{
+
+e.preventDefault();
+
+const name=contactForm.querySelector('input[type="text"]');
+
+const email=contactForm.querySelector('input[type="email"]');
+
+const message=contactForm.querySelector("textarea");
+
+if(
+
+!name.value.trim() ||
+
+!email.value.trim() ||
+
+!message.value.trim()
+
+){
+
+alert("Please fill all required fields.");
+
+return;
+
+}
+
+const emailPattern=
+
+/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if(!emailPattern.test(email.value)){
+
+alert("Please enter a valid email address.");
+
+return;
+
+}
+
+alert("Thank you! Your message has been submitted.");
+
+contactForm.reset();
+
+});
+
+}
+
+/*==============================
+      LAZY LOADING
+==============================*/
+
+document.querySelectorAll("img").forEach(img=>{
+
+img.setAttribute("loading","lazy");
+
+img.setAttribute("decoding","async");
+
+});
+
+/*==============================
+      IMAGE FALLBACK
+==============================*/
+
+document.querySelectorAll("img").forEach(img=>{
+
+img.onerror=function(){
+
+this.src="images/no-image.png";
+
+};
+
+});
+
+/*==============================
+      BUTTON HOVER
+==============================*/
+
+document.querySelectorAll(".btn").forEach(btn=>{
+
+btn.addEventListener("mouseenter",()=>{
+
+btn.style.transform="translateY(-5px)";
+
+});
+
+btn.addEventListener("mouseleave",()=>{
+
+btn.style.transform="translateY(0)";
+
+});
+
+});
+
+/*==============================
+      PERFORMANCE
+==============================*/
+
+let resizeTimer;
+
+window.addEventListener("resize",()=>{
+
+clearTimeout(resizeTimer);
+
+resizeTimer=setTimeout(()=>{
+
+console.log("Layout Updated");
+
+},200);
+
+});
+
+/*==============================
+      PAGE VISIBILITY
+==============================*/
+
+document.addEventListener(
+
+"visibilitychange",
+
+()=>{
+
+if(document.hidden){
+
+console.log("Page Hidden");
+
+}else{
+
+console.log("Welcome Back");
+
+}
+
+}
+
+);
+
+/*==============================
+      KEYBOARD SHORTCUT
+==============================*/
+
+document.addEventListener("keydown",(e)=>{
+
+if(e.key==="Home"){
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+}
+
+});
+
+/*==============================
+      FINAL INIT
+==============================*/
+
+console.log(
+
+"%cWebsite Loaded Successfully 🚀",
+
+"color:#22c55e;font-size:18px;font-weight:bold;"
+
+);
+
+console.log(
+
+"%cHustler's Tuition Premium Edition",
+
+"color:#3b82f6;font-size:15px;"
+
+);
+
+/*==================================================
+              END OF FILE
+==================================================*/
