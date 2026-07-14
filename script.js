@@ -1,793 +1,443 @@
-/*==================================================
-        HUSTLER'S TUITION
-        SCRIPT.JS PART - 1
-==================================================*/
+// ==========================
+// LOADER
+// ==========================
 
-/*==============================
-        DOM READY
-==============================*/
+window.addEventListener("load", () => {
 
-document.addEventListener("DOMContentLoaded",()=>{
+    const loader = document.querySelector(".loader");
 
-/*==============================
-        LOADER
-==============================*/
+    if (loader) {
+        setTimeout(() => {
+            loader.style.display = "none";
+        }, 1000);
+    }
 
-window.addEventListener("load",()=>{
+});
 
-const loader=document.getElementById("loader");
+// ==========================
+// ELEMENTS
+// ==========================
 
-if(loader){
+const topBtn = document.getElementById("topBtn");
+const menuBtn = document.querySelector(".menu-btn");
+const navLinks = document.querySelector(".nav-links");
+const navbar = document.querySelector(".navbar");
 
-loader.style.opacity="0";
+const sections = document.querySelectorAll("section");
+const navItems = document.querySelectorAll(".nav-links a");
 
-setTimeout(()=>{
+// ==========================
+// SCROLL EVENTS
+// ==========================
 
-loader.style.display="none";
+window.addEventListener("scroll", () => {
 
-},700);
+    // Progress Bar
+    const progressBar = document.getElementById("progress-bar");
+
+    if (progressBar) {
+        let scrollTop = document.documentElement.scrollTop;
+
+        let scrollHeight =
+            document.documentElement.scrollHeight -
+            document.documentElement.clientHeight;
+
+        let progress = (scrollTop / scrollHeight) * 100;
+
+        progressBar.style.width = progress + "%";
+    }
+
+    // Back To Top Button
+    if (topBtn) {
+        if (window.scrollY > 300) {
+            topBtn.style.display = "block";
+        } else {
+            topBtn.style.display = "none";
+        }
+    }
+
+    // Sticky Navbar
+    if (navbar) {
+        if (window.scrollY > 50) {
+            navbar.classList.add("sticky");
+        } else {
+            navbar.classList.remove("sticky");
+        }
+    }
+
+    // Active Navigation
+    let current = "";
+
+    sections.forEach(section => {
+
+        const sectionTop = section.offsetTop - 150;
+
+        if (window.pageYOffset >= sectionTop) {
+            current = section.getAttribute("id");
+        }
+
+    });
+
+    navItems.forEach(link => {
+
+        link.classList.remove("active");
+
+        if (link.getAttribute("href") === "#" + current) {
+            link.classList.add("active");
+        }
+
+    });
+
+});
+
+// ==========================
+// BACK TO TOP
+// ==========================
+
+if (topBtn) {
+
+    topBtn.addEventListener("click", () => {
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
 
 }
 
-});
+// ==========================
+// MOBILE MENU
+// ==========================
 
-/*==============================
-      AOS ANIMATION
-==============================*/
+if (menuBtn && navLinks) {
 
-if(typeof AOS!=="undefined"){
+    menuBtn.addEventListener("click", () => {
 
-AOS.init({
+        navLinks.classList.toggle("active");
 
-duration:1000,
-
-once:true,
-
-offset:120,
-
-easing:"ease-in-out"
-
-});
+    });
 
 }
 
-/*==============================
-      TYPING EFFECT
-==============================*/
+// ==========================
+// COUNTER ANIMATION
+// ==========================
 
-if(document.querySelector(".typing")){
+const counters = document.querySelectorAll(".counter");
 
-new Typed(".typing",{
+counters.forEach(counter => {
 
-strings:[
+    const target = Number(counter.getAttribute("data-target"));
 
-"Best Coaching Classes",
+    counter.innerText = "0";
 
-"KG to 12th Classes",
+    const updateCounter = () => {
 
-"State Board",
+        const current = Number(counter.innerText);
 
-"CBSE Board",
+        const increment = Math.ceil(target / 100);
 
-"NCERT",
+        if (current < target) {
 
-"Expert Teachers",
+            counter.innerText =
+                Math.min(current + increment, target);
 
-"Offline Coaching"
+            setTimeout(updateCounter, 30);
 
-],
+        } else {
 
-typeSpeed:70,
+            counter.innerText = target;
 
-backSpeed:45,
+        }
 
-backDelay:1700,
+    };
 
-loop:true
+    updateCounter();
 
 });
+
+// ==========================
+// SMOOTH SCROLL
+// ==========================
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+
+    anchor.addEventListener("click", function (e) {
+
+        const target = document.querySelector(
+            this.getAttribute("href")
+        );
+
+        if (target) {
+
+            e.preventDefault();
+
+            target.scrollIntoView({
+                behavior: "smooth"
+            });
+
+            if (navLinks) {
+                navLinks.classList.remove("active");
+            }
+
+        }
+
+    });
+
+});
+
+// ==========================
+// FAQ ACCORDION
+// ==========================
+
+const faqItems = document.querySelectorAll(".faq-item");
+
+faqItems.forEach(item => {
+
+    item.addEventListener("click", () => {
+
+        const answer = item.querySelector("p");
+
+        if (!answer) return;
+
+        if (answer.style.display === "block") {
+
+            answer.style.display = "none";
+
+        } else {
+
+            answer.style.display = "block";
+
+        }
+
+    });
+
+});
+
+// ==========================
+// TYPING EFFECT
+// ==========================
+
+const typingText = document.querySelector(".typing-text");
+
+if (typingText) {
+
+    const texts = [
+        "Quality Offline Coaching For KG To 12th",
+        "State Board | CBSE | NCERT",
+        "Morning & Evening Batches Available",
+        "Experienced Teachers & Personal Attention"
+    ];
+
+    let textIndex = 0;
+    let charIndex = 0;
+
+    function typeEffect() {
+
+        if (charIndex < texts[textIndex].length) {
+
+            typingText.textContent +=
+                texts[textIndex].charAt(charIndex);
+
+            charIndex++;
+
+            setTimeout(typeEffect, 80);
+
+        } else {
+
+            setTimeout(eraseEffect, 2000);
+
+        }
+
+    }
+
+    function eraseEffect() {
+
+        if (charIndex > 0) {
+
+            typingText.textContent =
+                texts[textIndex].substring(0, charIndex - 1);
+
+            charIndex--;
+
+            setTimeout(eraseEffect, 40);
+
+        } else {
+
+            textIndex++;
+
+            if (textIndex >= texts.length) {
+                textIndex = 0;
+            }
+
+            setTimeout(typeEffect, 500);
+
+        }
+
+    }
+
+    typingText.textContent = "";
+    typeEffect();
 
 }
+const testimonials = document.querySelectorAll(".testimonial-card");
 
-/*==============================
-        MOBILE MENU
-==============================*/
+let currentSlide = 0;
 
-const menuBtn=document.getElementById("menu-btn");
+function testimonialSlider(){
 
-const navbar=document.getElementById("navbar");
+    testimonials.forEach(card=>{
+        card.classList.remove("active");
+    });
 
-if(menuBtn && navbar){
+    testimonials[currentSlide].classList.add("active");
 
-menuBtn.addEventListener("click",()=>{
+    currentSlide++;
 
-navbar.classList.toggle("active");
-
-menuBtn.classList.toggle("active");
-
-});
-
+    if(currentSlide >= testimonials.length){
+        currentSlide = 0;
+    }
 }
 
-/*==============================
-      CLOSE MENU
-==============================*/
+testimonialSlider();
 
-document.querySelectorAll("#navbar a")
+setInterval(testimonialSlider,3000);
 
-.forEach(link=>{
+// ==========================
+// SCROLL REVEAL
+// ==========================
 
-link.addEventListener("click",()=>{
-
-navbar.classList.remove("active");
-
-menuBtn.classList.remove("active");
-
-});
-
-});
-
-/*==============================
-      SMOOTH SCROLL
-==============================*/
-
-document.querySelectorAll('a[href^="#"]')
-
-.forEach(anchor=>{
-
-anchor.addEventListener("click",function(e){
-
-const target=document.querySelector(
-
-this.getAttribute("href")
-
+const revealElements = document.querySelectorAll(
+    ".course-card, .teacher-card, .facility-card, .achievement-card, .testimonial-card, .gallery-card, .why-card, .board-card, .fee-card, .contact-card"
 );
 
-if(target){
+revealElements.forEach(element => {
 
-e.preventDefault();
-
-target.scrollIntoView({
-
-behavior:"smooth"
+    element.style.opacity = "0";
+    element.style.transform = "translateY(50px)";
+    element.style.transition = "0.8s ease";
 
 });
+
+function revealOnScroll() {
+
+    revealElements.forEach(element => {
+
+        const windowHeight = window.innerHeight;
+        const revealTop =
+            element.getBoundingClientRect().top;
+
+        const revealPoint = 120;
+
+        if (revealTop < windowHeight - revealPoint) {
+
+            element.style.opacity = "1";
+            element.style.transform = "translateY(0)";
+
+        }
+
+    });
 
 }
 
-});
+window.addEventListener("scroll", revealOnScroll);
+revealOnScroll();
 
-});
 
-});
-/*==================================================
-        SCRIPT.JS PART - 2
-==================================================*/
+// ==========================
+// ADMISSION FORM + WHATSAPP
+// ==========================
 
-/*==============================
-        HEADER
-==============================*/
+const admissionForm = document.getElementById("admissionForm");
 
-const header=document.getElementById("header");
+if (admissionForm) {
 
-/*==============================
-    PROGRESS BAR
-==============================*/
+    admissionForm.addEventListener("submit", function (e) {
 
-const progressBar=document.getElementById("progress-bar");
+        e.preventDefault();
 
-/*==============================
-    BACK TO TOP
-==============================*/
+        const name = document.getElementById("name").value.trim();
+        const studentClass = document.getElementById("class").value.trim();
+        const board = document.getElementById("board").value.trim();
+        const mobile = document.getElementById("mobile").value.trim();
+        const message = document.getElementById("message").value.trim();
 
-const backToTop=document.getElementById("backToTop");
+        if (!/^[0-9]{10}$/.test(mobile)) {
+            alert("Please enter a valid 10 digit mobile number");
+            return;
+        }
 
-/*==============================
-      NAV LINKS
-==============================*/
+        const whatsappMessage =
+`🎓 New Admission Enquiry
 
-const sections=document.querySelectorAll("section");
+👤 Student Name: ${name}
+🏫 Class: ${studentClass}
+📚 Board: ${board}
+📱 Mobile: ${mobile}
 
-const navLinks=document.querySelectorAll("#navbar a");
+✍ Message:
+${message}`;
 
-/*==============================
-    SCROLL EVENTS
-==============================*/
+        const whatsappURL =
+            `https://wa.me/917038742339?text=${encodeURIComponent(whatsappMessage)}`;
 
-window.addEventListener("scroll",()=>{
+        window.open(whatsappURL, "_blank");
 
-const scrollTop=window.pageYOffset;
+        admissionForm.reset();
 
-/*==============================
-      HEADER SHADOW
-==============================*/
-
-if(header){
-
-if(scrollTop>50){
-
-header.classList.add("scrolled");
-
-}else{
-
-header.classList.remove("scrolled");
+    });
 
 }
 
-}
+// ==========================
+// SCROLLREVEAL LIBRARY
+// ==========================
 
-/*==============================
-    SCROLL PROGRESS
-==============================*/
+if (typeof ScrollReveal !== "undefined") {
 
-if(progressBar){
+    ScrollReveal({
+        distance: "80px",
+        duration: 800,
+        delay: 100
+    });
 
-const height=
+    ScrollReveal().reveal(
+        ".hero-content, .hero-image, .section-title",
+        { origin: "top" }
+    );
 
-document.documentElement.scrollHeight-
+    ScrollReveal().reveal(
+        ".course-card, .facility-card, .teacher-card, .achievement-card, .fee-card, .contact-card",
+        { origin: "bottom", interval: 100 }
+    );
 
-document.documentElement.clientHeight;
+    ScrollReveal().reveal(
+        ".about-content, .glass-card-large",
+        { origin: "left" }
+    );
 
-const progress=(scrollTop/height)*100;
-
-progressBar.style.width=progress+"%";
-
-}
-
-/*==============================
-      BACK TO TOP
-==============================*/
-
-if(backToTop){
-
-if(scrollTop>450){
-
-backToTop.style.display="flex";
-
-}else{
-
-backToTop.style.display="none";
+    ScrollReveal().reveal(
+        ".about-card",
+        { origin: "right" }
+    );
 
 }
+// Courses Columns Slider Animation
 
-}
+const courseCards = document.querySelectorAll(".course-card");
 
-/*==============================
-      ACTIVE NAVBAR
-==============================*/
+window.addEventListener("scroll", () => {
 
-let current="";
+    courseCards.forEach(card => {
 
-sections.forEach(section=>{
+        const cardTop = card.getBoundingClientRect().top;
 
-const top=section.offsetTop-180;
+        if(cardTop < window.innerHeight - 100){
+            card.classList.add("show");
+        }
 
-const height=section.offsetHeight;
-
-if(scrollTop>=top && scrollTop<top+height){
-
-current=section.id;
-
-}
+    });
 
 });
-
-navLinks.forEach(link=>{
-
-link.classList.remove("active");
-
-if(link.getAttribute("href")==="#"+current){
-
-link.classList.add("active");
-
-}
-
-});
-
-});
-
-/*==============================
-    BACK TO TOP CLICK
-==============================*/
-
-if(backToTop){
-
-backToTop.addEventListener("click",()=>{
-
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
-
-});
-
-}
-
-/*==============================
-      SCROLL REVEAL
-==============================*/
-
-const revealItems=document.querySelectorAll(
-
-".course-card,.teacher-card,.project-card,.gallery-item,.facility-card,.testimonial-card,.contact-card"
-
-);
-
-const revealObserver=new IntersectionObserver(
-
-(entries)=>{
-
-entries.forEach(entry=>{
-
-if(entry.isIntersecting){
-
-entry.target.classList.add("fade-up");
-
-}
-
-});
-
-},
-
-{
-
-threshold:.15
-
-}
-
-);
-
-revealItems.forEach(item=>{
-
-revealObserver.observe(item);
-
-});
-/*==================================================
-        SCRIPT.JS PART - 3
-==================================================*/
-
-/*==============================
-        VANILLA TILT
-==============================*/
-
-if(typeof VanillaTilt!=="undefined"){
-
-VanillaTilt.init(
-
-document.querySelectorAll(
-
-".course-card,.teacher-card,.project-card,.skill-card,.facility-card,.testimonial-card,.contact-card,.why-card"
-
-),
-
-{
-
-max:10,
-
-speed:400,
-
-glare:true,
-
-"max-glare":0.20,
-
-scale:1.02
-
-}
-
-);
-
-}
-
-/*==============================
-      RIPPLE EFFECT
-==============================*/
-
-document.querySelectorAll(".btn").forEach(button=>{
-
-button.addEventListener("click",function(e){
-
-const circle=document.createElement("span");
-
-const diameter=Math.max(
-
-this.clientWidth,
-
-this.clientHeight
-
-);
-
-const radius=diameter/2;
-
-circle.style.width=
-
-circle.style.height=
-
-`${diameter}px`;
-
-circle.style.left=
-
-`${e.offsetX-radius}px`;
-
-circle.style.top=
-
-`${e.offsetY-radius}px`;
-
-circle.classList.add("ripple");
-
-const ripple=
-
-this.querySelector(".ripple");
-
-if(ripple){
-
-ripple.remove();
-
-}
-
-this.appendChild(circle);
-
-});
-
-});
-
-/*==============================
-      COUNTER
-==============================*/
-
-const counters=document.querySelectorAll(".counter");
-
-const counterObserver=new IntersectionObserver(
-
-(entries)=>{
-
-entries.forEach(entry=>{
-
-if(!entry.isIntersecting)return;
-
-const counter=entry.target;
-
-const target=+counter.dataset.target;
-
-let current=0;
-
-const increment=Math.ceil(target/100);
-
-const update=()=>{
-
-current+=increment;
-
-if(current>=target){
-
-counter.innerText=target+"+";
-
-}else{
-
-counter.innerText=current+"+";
-
-requestAnimationFrame(update);
-
-}
-
-};
-
-update();
-
-counterObserver.unobserve(counter);
-
-});
-
-},
-
-{
-
-threshold:.5
-
-}
-
-);
-
-counters.forEach(counter=>{
-
-counterObserver.observe(counter);
-
-});
-
-/*==============================
-      FAQ ACCORDION
-==============================*/
-
-document.querySelectorAll(".faq-item")
-
-.forEach(item=>{
-
-const question=
-
-item.querySelector(".faq-question");
-
-if(question){
-
-question.addEventListener("click",()=>{
-
-document.querySelectorAll(".faq-item")
-
-.forEach(f=>{
-
-if(f!==item){
-
-f.classList.remove("active");
-
-}
-
-});
-
-item.classList.toggle("active");
-
-});
-
-}
-
-});
-
-/*==============================
-      CURRENT YEAR
-==============================*/
-
-const year=document.getElementById("year");
-
-if(year){
-
-year.textContent=
-
-new Date().getFullYear();
-
-}
-
-/*==============================
-    CONSOLE MESSAGE
-==============================*/
-
-console.clear();
-
-console.log(
-
-"%c🎓 Hustler's Tuition",
-
-"color:#2563eb;font-size:22px;font-weight:bold;"
-
-);
-
-console.log(
-
-"%cDesigned & Developed by Aryan Rohit Khiladi",
-
-"color:#22c55e;font-size:14px;"
-
-);
-/*==================================================
-        SCRIPT.JS PART - 4 (FINAL)
-==================================================*/
-
-/*==============================
-        DARK MODE
-==============================*/
-
-const themeBtn=document.getElementById("theme-toggle");
-
-if(themeBtn){
-
-const savedTheme=localStorage.getItem("theme");
-
-if(savedTheme==="light"){
-
-document.body.classList.add("light");
-
-}
-
-themeBtn.addEventListener("click",()=>{
-
-document.body.classList.toggle("light");
-
-localStorage.setItem(
-
-"theme",
-
-document.body.classList.contains("light")
-
-? "light"
-
-: "dark"
-
-);
-
-});
-
-}
-
-/*==============================
-      CONTACT FORM
-==============================*/
-
-const contactForm=document.querySelector(".contact-form");
-
-if(contactForm){
-
-contactForm.addEventListener("submit",(e)=>{
-
-e.preventDefault();
-
-const name=contactForm.querySelector('input[type="text"]');
-
-const email=contactForm.querySelector('input[type="email"]');
-
-const message=contactForm.querySelector("textarea");
-
-if(
-
-!name.value.trim() ||
-
-!email.value.trim() ||
-
-!message.value.trim()
-
-){
-
-alert("Please fill all required fields.");
-
-return;
-
-}
-
-const emailPattern=
-
-/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-if(!emailPattern.test(email.value)){
-
-alert("Please enter a valid email address.");
-
-return;
-
-}
-
-alert("Thank you! Your message has been submitted.");
-
-contactForm.reset();
-
-});
-
-}
-
-/*==============================
-      LAZY LOADING
-==============================*/
-
-document.querySelectorAll("img").forEach(img=>{
-
-img.setAttribute("loading","lazy");
-
-img.setAttribute("decoding","async");
-
-});
-
-/*==============================
-      IMAGE FALLBACK
-==============================*/
-
-document.querySelectorAll("img").forEach(img=>{
-
-img.onerror=function(){
-
-this.src="images/no-image.png";
-
-};
-
-});
-
-/*==============================
-      BUTTON HOVER
-==============================*/
-
-document.querySelectorAll(".btn").forEach(btn=>{
-
-btn.addEventListener("mouseenter",()=>{
-
-btn.style.transform="translateY(-5px)";
-
-});
-
-btn.addEventListener("mouseleave",()=>{
-
-btn.style.transform="translateY(0)";
-
-});
-
-});
-
-/*==============================
-      PERFORMANCE
-==============================*/
-
-let resizeTimer;
-
-window.addEventListener("resize",()=>{
-
-clearTimeout(resizeTimer);
-
-resizeTimer=setTimeout(()=>{
-
-console.log("Layout Updated");
-
-},200);
-
-});
-
-/*==============================
-      PAGE VISIBILITY
-==============================*/
-
-document.addEventListener(
-
-"visibilitychange",
-
-()=>{
-
-if(document.hidden){
-
-console.log("Page Hidden");
-
-}else{
-
-console.log("Welcome Back");
-
-}
-
-}
-
-);
-
-/*==============================
-      KEYBOARD SHORTCUT
-==============================*/
-
-document.addEventListener("keydown",(e)=>{
-
-if(e.key==="Home"){
-
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
-
-}
-
-});
-
-/*==============================
-      FINAL INIT
-==============================*/
-
-console.log(
-
-"%cWebsite Loaded Successfully 🚀",
-
-"color:#22c55e;font-size:18px;font-weight:bold;"
-
-);
-
-console.log(
-
-"%cHustler's Tuition Premium Edition",
-
-"color:#3b82f6;font-size:15px;"
-
-);
-
-/*==================================================
-              END OF FILE
-==================================================*/
