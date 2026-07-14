@@ -1,79 +1,208 @@
-// ==========================
-// LOADER
-// ==========================
+/*==================================================
+        HUSTLER'S TUITION
+        SCRIPT.JS (FINAL)
+        PART - 1
+==================================================*/
+
+"use strict";
+
+/*=========================================
+    DOM ELEMENTS
+=========================================*/
+
+const body = document.body;
+
+const navbar = document.querySelector(".navbar");
+
+const menuBtn = document.querySelector(".menu-btn");
+
+const navLinks = document.querySelector(".nav-links");
+
+const topBtn = document.getElementById("topBtn");
+
+const progressBar = document.getElementById("progress-bar");
+
+const loader = document.querySelector(".loader");
+
+const navItems = document.querySelectorAll(".nav-links a");
+
+const sections = document.querySelectorAll("section");
+
+
+/*=========================================
+    PAGE LOADER
+=========================================*/
 
 window.addEventListener("load", () => {
 
-    const loader = document.querySelector(".loader");
-
     if (loader) {
+
+        loader.classList.add("loader-hide");
+
         setTimeout(() => {
-            loader.style.display = "none";
-        }, 1000);
+
+            loader.remove();
+
+        }, 500);
+
     }
 
 });
 
-// ==========================
-// ELEMENTS
-// ==========================
 
-const topBtn = document.getElementById("topBtn");
-const menuBtn = document.querySelector(".menu-btn");
-const navLinks = document.querySelector(".nav-links");
-const navbar = document.querySelector(".navbar");
+/*=========================================
+    MOBILE MENU
+=========================================*/
 
-const sections = document.querySelectorAll("section");
-const navItems = document.querySelectorAll(".nav-links a");
+if (menuBtn && navLinks) {
 
-// ==========================
-// SCROLL EVENTS
-// ==========================
+    menuBtn.addEventListener("click", () => {
 
-window.addEventListener("scroll", () => {
+        menuBtn.classList.toggle("active");
 
-    // Progress Bar
-    const progressBar = document.getElementById("progress-bar");
+        navLinks.classList.toggle("active");
 
-    if (progressBar) {
-        let scrollTop = document.documentElement.scrollTop;
+        body.classList.toggle("menu-open");
 
-        let scrollHeight =
-            document.documentElement.scrollHeight -
-            document.documentElement.clientHeight;
+    });
 
-        let progress = (scrollTop / scrollHeight) * 100;
+}
 
-        progressBar.style.width = progress + "%";
-    }
 
-    // Back To Top Button
-    if (topBtn) {
-        if (window.scrollY > 300) {
-            topBtn.style.display = "block";
-        } else {
-            topBtn.style.display = "none";
+/*=========================================
+    CLOSE MENU AFTER CLICK
+=========================================*/
+
+navItems.forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        if (navLinks.classList.contains("active")) {
+
+            navLinks.classList.remove("active");
+
+            menuBtn.classList.remove("active");
+
+            body.classList.remove("menu-open");
+
         }
+
+    });
+
+});
+
+
+/*=========================================
+    STICKY NAVBAR
+=========================================*/
+
+function stickyNavbar() {
+
+    if (!navbar) return;
+
+    if (window.scrollY > 60) {
+
+        navbar.classList.add("sticky");
+
     }
 
-    // Sticky Navbar
-    if (navbar) {
-        if (window.scrollY > 50) {
-            navbar.classList.add("sticky");
-        } else {
-            navbar.classList.remove("sticky");
-        }
+    else {
+
+        navbar.classList.remove("sticky");
+
     }
 
-    // Active Navigation
+}
+
+
+/*=========================================
+    SCROLL PROGRESS BAR
+=========================================*/
+
+function updateProgressBar() {
+
+    if (!progressBar) return;
+
+    const scrollTop =
+        document.documentElement.scrollTop;
+
+    const scrollHeight =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+
+    const progress =
+        (scrollTop / scrollHeight) * 100;
+
+    progressBar.style.width = progress + "%";
+
+}
+
+
+/*=========================================
+    BACK TO TOP BUTTON
+=========================================*/
+
+function toggleTopButton() {
+
+    if (!topBtn) return;
+
+    if (window.scrollY > 350) {
+
+        topBtn.classList.add("show");
+
+    }
+
+    else {
+
+        topBtn.classList.remove("show");
+
+    }
+
+}
+
+
+if (topBtn) {
+
+    topBtn.addEventListener("click", () => {
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
+
+        });
+
+    });
+
+}
+
+
+/*=========================================
+    ACTIVE NAVIGATION
+=========================================*/
+
+function activeNavigation() {
+
     let current = "";
 
     sections.forEach(section => {
 
-        const sectionTop = section.offsetTop - 150;
+        const sectionTop =
+            section.offsetTop - 150;
 
-        if (window.pageYOffset >= sectionTop) {
+        const sectionHeight =
+            section.clientHeight;
+
+        if (
+
+            pageYOffset >= sectionTop &&
+            pageYOffset < sectionTop + sectionHeight
+
+        ) {
+
             current = section.getAttribute("id");
+
         }
 
     });
@@ -82,273 +211,326 @@ window.addEventListener("scroll", () => {
 
         link.classList.remove("active");
 
-        if (link.getAttribute("href") === "#" + current) {
+        if (
+
+            link.getAttribute("href") ===
+            "#" + current
+
+        ) {
+
             link.classList.add("active");
+
         }
 
     });
 
-});
+}
 
-// ==========================
-// BACK TO TOP
-// ==========================
 
-if (topBtn) {
+/*=========================================
+    SMOOTH SCROLL
+=========================================*/
 
-    topBtn.addEventListener("click", () => {
+document
+.querySelectorAll('a[href^="#"]')
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
+.forEach(anchor => {
+
+    anchor.addEventListener("click", function (e) {
+
+        const target =
+            document.querySelector(
+
+                this.getAttribute("href")
+
+            );
+
+        if (!target) return;
+
+        e.preventDefault();
+
+        target.scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "start"
+
         });
 
     });
 
-}
+});
 
-// ==========================
-// MOBILE MENU
-// ==========================
 
-if (menuBtn && navLinks) {
+/*=========================================
+    WINDOW SCROLL
+=========================================*/
 
-    menuBtn.addEventListener("click", () => {
+window.addEventListener("scroll", () => {
 
-        navLinks.classList.toggle("active");
+    stickyNavbar();
 
-    });
+    updateProgressBar();
 
-}
+    toggleTopButton();
 
-// ==========================
-// COUNTER ANIMATION
-// ==========================
+    activeNavigation();
+
+});
+/*==================================================
+        SCRIPT.JS (FINAL)
+        PART - 2
+==================================================*/
+
+
+/*=========================================
+    COUNTER ANIMATION
+=========================================*/
 
 const counters = document.querySelectorAll(".counter");
 
-counters.forEach(counter => {
+const counterObserver = new IntersectionObserver((entries, observer) => {
 
-    const target = Number(counter.getAttribute("data-target"));
+    entries.forEach(entry => {
 
-    counter.innerText = "0";
+        if (!entry.isIntersecting) return;
 
-    const updateCounter = () => {
+        const counter = entry.target;
+        const target = +counter.dataset.target;
+        const speed = 120;
+        let count = 0;
 
-        const current = Number(counter.innerText);
+        const updateCounter = () => {
 
-        const increment = Math.ceil(target / 100);
+            const increment = Math.ceil(target / speed);
 
-        if (current < target) {
+            count += increment;
 
-            counter.innerText =
-                Math.min(current + increment, target);
+            if (count >= target) {
 
-            setTimeout(updateCounter, 30);
+                counter.textContent = target;
 
-        } else {
+                observer.unobserve(counter);
 
-            counter.innerText = target;
+                return;
 
-        }
+            }
 
-    };
+            counter.textContent = count;
 
-    updateCounter();
+            requestAnimationFrame(updateCounter);
+
+        };
+
+        updateCounter();
+
+    });
+
+}, {
+
+    threshold: 0.5
 
 });
 
-// ==========================
-// SMOOTH SCROLL
-// ==========================
+counters.forEach(counter => counterObserver.observe(counter));
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
-    anchor.addEventListener("click", function (e) {
+/*=========================================
+    SCROLL REVEAL
+=========================================*/
 
-        const target = document.querySelector(
-            this.getAttribute("href")
-        );
+const revealItems = document.querySelectorAll(
 
-        if (target) {
+".course-card, .teacher-card, .achievement-card, .gallery-card, .facility-card, .why-card, .testimonial-card, .contact-card, .faq-item, .info-card"
 
-            e.preventDefault();
+);
 
-            target.scrollIntoView({
-                behavior: "smooth"
-            });
+const revealObserver = new IntersectionObserver((entries) => {
 
-            if (navLinks) {
-                navLinks.classList.remove("active");
-            }
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+            entry.target.classList.add("show");
 
         }
 
     });
 
+}, {
+
+    threshold: .15
+
 });
 
-// ==========================
-// FAQ ACCORDION
-// ==========================
+revealItems.forEach(item => revealObserver.observe(item));
+
+
+/*=========================================
+    FAQ ACCORDION
+=========================================*/
 
 const faqItems = document.querySelectorAll(".faq-item");
 
 faqItems.forEach(item => {
 
-    item.addEventListener("click", () => {
+    const question = item.querySelector(".faq-question");
 
-        const answer = item.querySelector("p");
+    question.addEventListener("click", () => {
 
-        if (!answer) return;
+        faqItems.forEach(faq => {
 
-        if (answer.style.display === "block") {
+            if (faq !== item) {
 
-            answer.style.display = "none";
+                faq.classList.remove("active");
 
-        } else {
+            }
 
-            answer.style.display = "block";
+        });
 
-        }
+        item.classList.toggle("active");
 
     });
 
 });
 
-// ==========================
-// TYPING EFFECT
-// ==========================
+
+/*=========================================
+    HERO TYPING EFFECT
+=========================================*/
 
 const typingText = document.querySelector(".typing-text");
 
 if (typingText) {
 
-    const texts = [
-        "Quality Offline Coaching For KG To 12th",
-        "State Board | CBSE | NCERT",
-        "Morning & Evening Batches Available",
-        "Experienced Teachers & Personal Attention"
-    ];
+const words = [
 
-    let textIndex = 0;
-    let charIndex = 0;
+"Quality Offline Coaching",
 
-    function typeEffect() {
+"KG To 12th Classes",
 
-        if (charIndex < texts[textIndex].length) {
+"State Board • CBSE • NCERT",
 
-            typingText.textContent +=
-                texts[textIndex].charAt(charIndex);
+"Personal Attention",
 
-            charIndex++;
+"Regular Weekly Tests"
 
-            setTimeout(typeEffect, 80);
+];
 
-        } else {
+let wordIndex = 0;
+let charIndex = 0;
+let deleting = false;
 
-            setTimeout(eraseEffect, 2000);
+function typingEffect() {
 
-        }
+const currentWord = words[wordIndex];
 
-    }
+if (!deleting) {
 
-    function eraseEffect() {
+typingText.textContent =
+currentWord.substring(0, charIndex + 1);
 
-        if (charIndex > 0) {
+charIndex++;
 
-            typingText.textContent =
-                texts[textIndex].substring(0, charIndex - 1);
+if (charIndex === currentWord.length) {
 
-            charIndex--;
+deleting = true;
 
-            setTimeout(eraseEffect, 40);
+setTimeout(typingEffect, 1800);
 
-        } else {
-
-            textIndex++;
-
-            if (textIndex >= texts.length) {
-                textIndex = 0;
-            }
-
-            setTimeout(typeEffect, 500);
-
-        }
-
-    }
-
-    typingText.textContent = "";
-    typeEffect();
+return;
 
 }
-const testimonials = document.querySelectorAll(".testimonial-card");
+
+}
+
+else {
+
+typingText.textContent =
+currentWord.substring(0, charIndex - 1);
+
+charIndex--;
+
+if (charIndex === 0) {
+
+deleting = false;
+
+wordIndex++;
+
+if (wordIndex >= words.length) {
+
+wordIndex = 0;
+
+}
+
+}
+
+}
+
+setTimeout(
+
+typingEffect,
+
+deleting ? 40 : 80
+
+);
+
+}
+
+typingEffect();
+
+}
+
+
+/*=========================================
+    TESTIMONIAL SLIDER
+=========================================*/
+
+const testimonials =
+document.querySelectorAll(".testimonial-card");
 
 let currentSlide = 0;
 
-function testimonialSlider(){
+function showSlide(index) {
 
-    testimonials.forEach(card=>{
-        card.classList.remove("active");
-    });
+testimonials.forEach(card => {
 
-    testimonials[currentSlide].classList.add("active");
-
-    currentSlide++;
-
-    if(currentSlide >= testimonials.length){
-        currentSlide = 0;
-    }
-}
-
-testimonialSlider();
-
-setInterval(testimonialSlider,3000);
-
-// ==========================
-// SCROLL REVEAL
-// ==========================
-
-const revealElements = document.querySelectorAll(
-    ".course-card, .teacher-card, .facility-card, .achievement-card, .testimonial-card, .gallery-card, .why-card, .board-card, .fee-card, .contact-card"
-);
-
-revealElements.forEach(element => {
-
-    element.style.opacity = "0";
-    element.style.transform = "translateY(50px)";
-    element.style.transition = "0.8s ease";
+card.classList.remove("active");
 
 });
 
-function revealOnScroll() {
-
-    revealElements.forEach(element => {
-
-        const windowHeight = window.innerHeight;
-        const revealTop =
-            element.getBoundingClientRect().top;
-
-        const revealPoint = 120;
-
-        if (revealTop < windowHeight - revealPoint) {
-
-            element.style.opacity = "1";
-            element.style.transform = "translateY(0)";
-
-        }
-
-    });
+testimonials[index].classList.add("active");
 
 }
 
-window.addEventListener("scroll", revealOnScroll);
-revealOnScroll();
+if (testimonials.length > 0) {
+
+showSlide(currentSlide);
+
+setInterval(() => {
+
+currentSlide++;
+
+if (currentSlide >= testimonials.length) {
+
+currentSlide = 0;
+
+}
+
+showSlide(currentSlide);
+
+}, 4000);
+
+}
+/*==================================================
+        SCRIPT.JS (FINAL)
+        PART - 3
+==================================================*/
 
 
-// ==========================
-// ADMISSION FORM + WHATSAPP
-// ==========================
+/*=========================================
+    ADMISSION FORM
+=========================================*/
 
 const admissionForm = document.getElementById("admissionForm");
 
@@ -359,31 +541,54 @@ if (admissionForm) {
         e.preventDefault();
 
         const name = document.getElementById("name").value.trim();
+
         const studentClass = document.getElementById("class").value.trim();
-        const board = document.getElementById("board").value.trim();
+
+        const board = document.getElementById("board").value;
+
         const mobile = document.getElementById("mobile").value.trim();
+
         const message = document.getElementById("message").value.trim();
 
-        if (!/^[0-9]{10}$/.test(mobile)) {
-            alert("Please enter a valid 10 digit mobile number");
+        if (!name || !studentClass || !board || !mobile) {
+
+            alert("Please fill all required fields.");
+
             return;
+
+        }
+
+        if (!/^[0-9]{10}$/.test(mobile)) {
+
+            alert("Please enter a valid 10 digit mobile number.");
+
+            return;
+
         }
 
         const whatsappMessage =
+
 `🎓 New Admission Enquiry
 
-👤 Student Name: ${name}
-🏫 Class: ${studentClass}
-📚 Board: ${board}
-📱 Mobile: ${mobile}
+👤 Student Name : ${name}
 
-✍ Message:
+🏫 Class : ${studentClass}
+
+📚 Board : ${board}
+
+📱 Mobile : ${mobile}
+
+📝 Message :
+
 ${message}`;
 
-        const whatsappURL =
-            `https://wa.me/917038742339?text=${encodeURIComponent(whatsappMessage)}`;
+        window.open(
 
-        window.open(whatsappURL, "_blank");
+`https://wa.me/917038742339?text=${encodeURIComponent(whatsappMessage)}`,
+
+"_blank"
+
+);
 
         admissionForm.reset();
 
@@ -391,53 +596,106 @@ ${message}`;
 
 }
 
-// ==========================
-// SCROLLREVEAL LIBRARY
-// ==========================
 
-if (typeof ScrollReveal !== "undefined") {
+/*=========================================
+    THEME TOGGLE
+=========================================*/
 
-    ScrollReveal({
-        distance: "80px",
-        duration: 800,
-        delay: 100
+const themeToggle = document.getElementById("themeToggle");
+
+if (themeToggle) {
+
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme === "dark") {
+
+        document.body.classList.add("dark-mode");
+
+    }
+
+    themeToggle.addEventListener("click", () => {
+
+        document.body.classList.toggle("dark-mode");
+
+        localStorage.setItem(
+
+            "theme",
+
+            document.body.classList.contains("dark-mode")
+
+            ? "dark"
+
+            : "light"
+
+        );
+
     });
-
-    ScrollReveal().reveal(
-        ".hero-content, .hero-image, .section-title",
-        { origin: "top" }
-    );
-
-    ScrollReveal().reveal(
-        ".course-card, .facility-card, .teacher-card, .achievement-card, .fee-card, .contact-card",
-        { origin: "bottom", interval: 100 }
-    );
-
-    ScrollReveal().reveal(
-        ".about-content, .glass-card-large",
-        { origin: "left" }
-    );
-
-    ScrollReveal().reveal(
-        ".about-card",
-        { origin: "right" }
-    );
 
 }
-// Courses Columns Slider Animation
 
-const courseCards = document.querySelectorAll(".course-card");
 
-window.addEventListener("scroll", () => {
+/*=========================================
+    GALLERY LIGHTBOX
+=========================================*/
 
-    courseCards.forEach(card => {
+const galleryImages = document.querySelectorAll(".gallery-card img");
 
-        const cardTop = card.getBoundingClientRect().top;
+galleryImages.forEach(image => {
 
-        if(cardTop < window.innerHeight - 100){
-            card.classList.add("show");
-        }
+    image.addEventListener("click", () => {
+
+        const overlay = document.createElement("div");
+
+        overlay.className = "lightbox";
+
+        overlay.innerHTML = `
+
+        <span class="close-lightbox">&times;</span>
+
+        <img src="${image.src}" alt="${image.alt}">
+
+        `;
+
+        document.body.appendChild(overlay);
+
+        overlay.addEventListener("click", () => {
+
+            overlay.remove();
+
+        });
 
     });
+
+});
+
+
+/*=========================================
+    REDUCED MOTION SUPPORT
+=========================================*/
+
+if (
+
+window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
+) {
+
+    document.documentElement.style.scrollBehavior = "auto";
+
+}
+
+
+/*=========================================
+    PAGE INITIALIZATION
+=========================================*/
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    stickyNavbar();
+
+    updateProgressBar();
+
+    toggleTopButton();
+
+    activeNavigation();
 
 });
