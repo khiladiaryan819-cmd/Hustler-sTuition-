@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://khiladiaryan819-cmd.github.io/Hustler-sTuition/sitemap.xml

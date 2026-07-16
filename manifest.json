@@ -1,0 +1,10 @@
+{
+  "name": "Hustler's Tuition",
+  "short_name": "Hustlers",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#facc15",
+  "orientation": "portrait",
+  "icons": []
+}
