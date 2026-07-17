@@ -466,9 +466,9 @@ header.scrolled{
 
 .hero{
 
-    min-height:100vh;
+    min-height:90vh;
 
-    padding:140px 8% 80px;
+    padding:110px 8% 50px;
 
     display:flex;
 
@@ -476,7 +476,7 @@ header.scrolled{
 
     align-items:center;
 
-    gap:60px;
+    gap:35px;
 
     flex-wrap:wrap;
 
@@ -570,7 +570,7 @@ header.scrolled{
 
 .hero-content h1{
 
-    font-size:4rem;
+    font-size:3.4rem;
 
     line-height:1.2;
 
@@ -640,9 +640,9 @@ header.scrolled{
 
     width:100%;
 
-    max-width:470px;
+    max-width:420px;
 
-    padding:35px;
+    padding:28px;
 
     border-radius:25px;
 
