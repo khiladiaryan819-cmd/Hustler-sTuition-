@@ -1,642 +1,279 @@
-/* ==========================================
-   HUSTLER'S TUITION
-   script.js
-========================================== */
+/*====================================
+        PORTFOLIO PRO
+====================================*/
 
-"use strict";
+window.addEventListener("load",()=>{
 
-/* ==========================================
-   PAGE LOADER
-========================================== */
+const loader=document.getElementById("loader");
 
-window.addEventListener("load", () => {
+loader.style.opacity="0";
 
-    const loader = document.querySelector(".loader");
+setTimeout(()=>{
 
-    if(loader){
+loader.style.display="none";
 
-        loader.style.opacity = "0";
-
-        setTimeout(() => {
-
-            loader.style.display = "none";
-
-        },500);
-
-    }
+},700);
 
 });
 
+/*====================================
+        AOS
+====================================*/
 
-/* ==========================================
-   SCROLL PROGRESS BAR
-========================================== */
+AOS.init({
 
-const progressBar = document.getElementById("progress-bar");
+duration:1000,
 
-window.addEventListener("scroll", () => {
+once:true,
 
-    const scrollTop =
-        document.documentElement.scrollTop;
-
-    const height =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
-
-    const progress =
-        (scrollTop / height) * 100;
-
-    if(progressBar){
-
-        progressBar.style.width =
-            progress + "%";
-
-    }
+offset:120
 
 });
 
+/*====================================
+      TYPING EFFECT
+====================================*/
 
-/* ==========================================
-   STICKY NAVBAR
-========================================== */
+new Typed(".typing",{
 
-const navbar =
-document.querySelector(".navbar");
+strings:[
 
-window.addEventListener("scroll", () => {
+"Frontend Developer",
 
-    if(!navbar) return;
+"Web Developer",
 
-    if(window.scrollY > 80){
+"Computer Engineering Student",
 
-        navbar.classList.add("sticky");
+"UI Enthusiast"
 
-    }else{
+],
 
-        navbar.classList.remove("sticky");
+typeSpeed:80,
 
-    }
+backSpeed:50,
 
-});
+backDelay:1500,
 
-
-/* ==========================================
-   ACTIVE NAVIGATION LINK
-========================================== */
-
-const sections =
-document.querySelectorAll("section");
-
-const navLinks =
-document.querySelectorAll(".nav-links a");
-
-window.addEventListener("scroll", () => {
-
-    let current = "";
-
-    sections.forEach(section => {
-
-        const top =
-            section.offsetTop - 120;
-
-        const height =
-            section.offsetHeight;
-
-        if(window.scrollY >= top){
-
-            current =
-            section.getAttribute("id");
-
-        }
-
-    });
-
-    navLinks.forEach(link => {
-
-        link.classList.remove("active");
-
-        if(
-            link.getAttribute("href") ===
-            "#" + current
-        ){
-
-            link.classList.add("active");
-
-        }
-
-    });
+loop:true
 
 });
-/* ==========================================
-   MOBILE MENU
-========================================== */
 
-const menuBtn = document.querySelector(".menu-btn");
-const navMenu = document.querySelector(".nav-links");
+/*====================================
+       MOBILE MENU
+====================================*/
 
-if (menuBtn && navMenu) {
+const menuBtn=document.getElementById("menu-btn");
 
-    menuBtn.addEventListener("click", () => {
+const navbar=document.getElementById("navbar");
 
-        navMenu.classList.toggle("active");
+menuBtn.onclick=()=>{
 
-        menuBtn.classList.toggle("active");
-
-    });
+navbar.classList.toggle("active");
 
 }
 
+/*====================================
+      CLOSE MENU
+====================================*/
 
-/* ==========================================
-   CLOSE MENU AFTER CLICK
-========================================== */
+document.querySelectorAll("#navbar a")
 
-document.querySelectorAll(".nav-links a").forEach(link => {
+.forEach(link=>{
 
-    link.addEventListener("click", () => {
+link.addEventListener("click",()=>{
 
-        if (navMenu) {
-
-            navMenu.classList.remove("active");
-
-        }
-
-        if (menuBtn) {
-
-            menuBtn.classList.remove("active");
-
-        }
-
-    });
+navbar.classList.remove("active");
 
 });
 
-
-/* ==========================================
-   BACK TO TOP BUTTON
-========================================== */
-
-const topBtn = document.getElementById("topBtn");
-
-window.addEventListener("scroll", () => {
-
-    if (!topBtn) return;
-
-    if (window.scrollY > 400) {
-
-        topBtn.style.display = "flex";
-
-    } else {
-
-        topBtn.style.display = "none";
-
-    }
-
 });
 
+/*====================================
+     ACTIVE NAVBAR
+====================================*/
 
-if (topBtn) {
+const sections=document.querySelectorAll("section");
 
-    topBtn.addEventListener("click", () => {
+const navLinks=document.querySelectorAll("#navbar a");
 
-        window.scrollTo({
+window.addEventListener("scroll",()=>{
 
-            top: 0,
+let current="";
 
-            behavior: "smooth"
+sections.forEach(section=>{
 
-        });
+const sectionTop=section.offsetTop-150;
 
-    });
+const sectionHeight=section.clientHeight;
+
+if(scrollY>=sectionTop){
+
+current=section.getAttribute("id");
 
 }
 
-
-/* ==========================================
-   SMOOTH SCROLL FOR NAVIGATION
-========================================== */
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-
-    anchor.addEventListener("click", function (e) {
-
-        const target = document.querySelector(this.getAttribute("href"));
-
-        if (!target) return;
-
-        e.preventDefault();
-
-        window.scrollTo({
-
-            top: target.offsetTop - 80,
-
-            behavior: "smooth"
-
-        });
-
-    });
-
 });
-/* ==========================================
-   COUNTER ANIMATION
-========================================== */
 
-const counters = document.querySelectorAll(".counter");
-let counterStarted = false;
+navLinks.forEach(link=>{
 
-function startCounter() {
+link.classList.remove("active");
 
-    if (counterStarted) return;
+if(link.getAttribute("href")==="#"+current){
 
-    counterStarted = true;
-
-    counters.forEach(counter => {
-
-        const target = Number(counter.dataset.target);
-
-        let current = 0;
-
-        const increment = target / 100;
-
-        function updateCounter() {
-
-            if (current < target) {
-
-                current += increment;
-
-                counter.innerText = Math.ceil(current);
-
-                requestAnimationFrame(updateCounter);
-
-            } else {
-
-                counter.innerText = target + "+";
-
-            }
-
-        }
-
-        updateCounter();
-
-    });
+link.classList.add("active");
 
 }
 
+});
 
-/* ==========================================
-   SCROLL REVEAL ANIMATION
-========================================== */
+});
+/*====================================
+      SCROLL PROGRESS BAR
+====================================*/
 
-const revealElements = document.querySelectorAll(
-".course-card, .teacher-card, .facility-card, .stat-box, .feature-box, .board-card, .why-card, .gallery-card, .testimonial-card, .topper-card, .contact-card, .achievement-card"
-);
+const progressBar=document.getElementById("progress-bar");
 
-function revealOnScroll() {
+window.addEventListener("scroll",()=>{
 
-    const triggerPoint = window.innerHeight - 120;
+const scrollTop=document.documentElement.scrollTop;
 
-    revealElements.forEach(element => {
+const scrollHeight=document.documentElement.scrollHeight-document.documentElement.clientHeight;
 
-        const elementTop = element.getBoundingClientRect().top;
+const progress=(scrollTop/scrollHeight)*100;
 
-        if (elementTop < triggerPoint) {
+progressBar.style.width=progress+"%";
 
-            element.classList.add("show");
+});
 
-        }
+/*====================================
+      BACK TO TOP
+====================================*/
 
-    });
+const backToTop=document.getElementById("backToTop");
+
+window.addEventListener("scroll",()=>{
+
+if(window.scrollY>500){
+
+backToTop.style.display="flex";
+
+}else{
+
+backToTop.style.display="none";
 
 }
 
+});
 
-/* ==========================================
-   START COUNTER WHEN SECTION APPEARS
-========================================== */
+backToTop.addEventListener("click",()=>{
 
-const counterSection = document.querySelector(".counter-section");
+window.scrollTo({
 
-window.addEventListener("scroll", () => {
+top:0,
 
-    revealOnScroll();
-
-    if (counterSection) {
-
-        const sectionTop = counterSection.getBoundingClientRect().top;
-
-        if (sectionTop < window.innerHeight - 120) {
-
-            startCounter();
-
-        }
-
-    }
+behavior:"smooth"
 
 });
 
-
-/* ==========================================
-   RUN ON PAGE LOAD
-========================================== */
-
-window.addEventListener("load", () => {
-
-    revealOnScroll();
-
 });
 
+/*====================================
+      HEADER SHADOW
+====================================*/
 
-/* ==========================================
-   HERO FADE EFFECT
-========================================== */
+const header=document.getElementById("header");
 
-const hero = document.querySelector(".hero");
+window.addEventListener("scroll",()=>{
 
-window.addEventListener("scroll", () => {
+if(window.scrollY>50){
 
-    if (!hero) return;
+header.style.boxShadow="0 10px 30px rgba(0,0,0,.35)";
 
-    hero.style.opacity = 1 - (window.scrollY / 900);
+}else{
 
-});
-
-
-/* ==========================================
-   COURSE CARD STAGGER ANIMATION
-========================================== */
-
-const courseCards = document.querySelectorAll(".course-card");
-
-courseCards.forEach((card, index) => {
-
-    card.style.transitionDelay = `${index * 0.15}s`;
-
-});
-/* ==========================================
-   FAQ ACCORDION
-========================================== */
-
-const faqItems = document.querySelectorAll(".faq-item");
-
-faqItems.forEach(item => {
-
-    const answer = item.querySelector("p");
-
-    if (answer) {
-
-        answer.style.display = "none";
-
-    }
-
-    item.addEventListener("click", () => {
-
-        const isOpen = answer.style.display === "block";
-
-        faqItems.forEach(faq => {
-
-            const p = faq.querySelector("p");
-
-            if (p) {
-
-                p.style.display = "none";
-
-            }
-
-            faq.classList.remove("active");
-
-        });
-
-        if (!isOpen) {
-
-            answer.style.display = "block";
-
-            item.classList.add("active");
-
-        }
-
-    });
-
-});
-
-
-/* ==========================================
-   TESTIMONIAL AUTO SLIDER
-========================================== */
-
-const testimonials = document.querySelectorAll(".testimonial-card");
-
-let testimonialIndex = 0;
-
-function testimonialSlider() {
-
-    if (testimonials.length === 0) return;
-
-    testimonials.forEach(card => {
-
-        card.classList.remove("active");
-
-    });
-
-    testimonials[testimonialIndex].classList.add("active");
-
-    testimonialIndex++;
-
-    if (testimonialIndex >= testimonials.length) {
-
-        testimonialIndex = 0;
-
-    }
+header.style.boxShadow="none";
 
 }
 
-testimonialSlider();
+});
 
-setInterval(testimonialSlider, 3000);
+/*====================================
+      VANILLA TILT
+====================================*/
 
+VanillaTilt.init(
 
-/* ==========================================
-   CARD HOVER ANIMATION
-========================================== */
+document.querySelectorAll(".project-card,.skill-card,.certificate-card,.education-card"),{
 
-const cards = document.querySelectorAll(
+max:10,
 
-".course-card, .teacher-card, .facility-card, .board-card, .why-card"
+speed:400,
+
+glare:true,
+
+"max-glare":0.25,
+
+scale:1.02
+
+}
 
 );
 
-cards.forEach(card => {
+/*====================================
+     BUTTON RIPPLE EFFECT
+====================================*/
 
-    card.addEventListener("mouseenter", () => {
+document.querySelectorAll(".btn").forEach(button=>{
 
-        card.style.transform = "translateY(-12px)";
+button.addEventListener("click",function(e){
 
-    });
+const circle=document.createElement("span");
 
-    card.addEventListener("mouseleave", () => {
+const diameter=Math.max(this.clientWidth,this.clientHeight);
 
-        card.style.transform = "";
+circle.style.width=circle.style.height=`${diameter}px`;
 
-    });
+circle.style.left=`${e.offsetX-diameter/2}px`;
 
-});
+circle.style.top=`${e.offsetY-diameter/2}px`;
 
+circle.classList.add("ripple");
 
-/* ==========================================
-   IMAGE HOVER EFFECT
-========================================== */
+const ripple=this.getElementsByClassName("ripple")[0];
 
-const galleryImages = document.querySelectorAll(".gallery-card img");
+if(ripple){
 
-galleryImages.forEach(img => {
-
-    img.addEventListener("mouseenter", () => {
-
-        img.style.transform = "scale(1.08)";
-
-    });
-
-    img.addEventListener("mouseleave", () => {
-
-        img.style.transform = "scale(1)";
-
-    });
-
-});
-/* ==========================================
-   DARK MODE TOGGLE
-========================================== */
-
-const darkModeBtn = document.querySelector(".dark-mode-btn");
-
-if (darkModeBtn) {
-
-    darkModeBtn.addEventListener("click", () => {
-
-        document.body.classList.toggle("dark-mode");
-
-        localStorage.setItem(
-            "theme",
-            document.body.classList.contains("dark-mode")
-                ? "dark"
-                : "light"
-        );
-
-    });
+ripple.remove();
 
 }
 
-window.addEventListener("load", () => {
-
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme === "dark") {
-
-        document.body.classList.add("dark-mode");
-
-    }
+this.appendChild(circle);
 
 });
 
+});
 
-/* ==========================================
-   ADMISSION FORM VALIDATION
-========================================== */
+/*====================================
+      CURRENT YEAR
+====================================*/
 
-const admissionForm = document.getElementById("admissionForm");
+const year=document.getElementById("year");
 
-if (admissionForm) {
+if(year){
 
-    admissionForm.addEventListener("submit", function (e) {
-
-        e.preventDefault();
-
-        const name = this.querySelector('input[name="name"]');
-        const phone = this.querySelector('input[name="phone"]');
-
-        if (name && name.value.trim().length < 3) {
-
-            alert("Please enter a valid name.");
-            return;
-
-        }
-
-        if (phone && phone.value.trim().length !== 10) {
-
-            alert("Please enter a valid 10 digit mobile number.");
-            return;
-
-        }
-
-        alert("Admission form submitted successfully!");
-
-        this.reset();
-
-    });
+year.textContent=new Date().getFullYear();
 
 }
 
+/*====================================
+        CONSOLE MESSAGE
+====================================*/
 
-/* ==========================================
-   BUTTON RIPPLE EFFECT
-========================================== */
+console.log("%cWelcome to Aryan Portfolio 🚀",
+"color:#3b82f6;font-size:18px;font-weight:bold;");
 
-document.querySelectorAll(".btn").forEach(button => {
+console.log("Designed & Developed by Aryan Rohit Khiladi");
 
-    button.addEventListener("click", function (e) {
-
-        const ripple = document.createElement("span");
-
-        ripple.className = "ripple";
-
-        const rect = this.getBoundingClientRect();
-
-        ripple.style.left = `${e.clientX - rect.left}px`;
-        ripple.style.top = `${e.clientY - rect.top}px`;
-
-        this.appendChild(ripple);
-
-        setTimeout(() => {
-
-            ripple.remove();
-
-        }, 600);
-
-    });
-
-});
-
-
-/* ==========================================
-   LAZY IMAGE ANIMATION
-========================================== */
-
-const images = document.querySelectorAll("img");
-
-images.forEach(img => {
-
-    img.setAttribute("loading", "lazy");
-
-});
-
-
-/* ==========================================
-   YEAR AUTO UPDATE
-========================================== */
-
-const year = document.getElementById("year");
-
-if (year) {
-
-    year.textContent = new Date().getFullYear();
-
-}
-
-
-/* ==========================================
-   CONSOLE MESSAGE
-========================================== */
-
-console.log(
-"%cHustler's Tuition Website Loaded Successfully!",
-"color:#facc15;font-size:18px;font-weight:bold;"
-);
+/*====================================
+        END OF FILE
+====================================*/

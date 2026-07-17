@@ -2099,6 +2099,23 @@ padding:25px;
     border:none;
 
 }
+.map-btn{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:100%;
+    padding:16px;
+    background:#FFD54F;
+    color:#111;
+    text-decoration:none;
+    font-weight:700;
+    border-radius:12px;
+    transition:.3s;
+}
+
+.map-btn:hover{
+    background:#FFC107;
+}
 
 
 /* ==================================================
@@ -2399,7 +2416,69 @@ padding:25px;
 
 }
 
+/* ===========================
+   FEE STRUCTURE
+=========================== */
 
+.fees-section{
+    padding:80px 20px;
+}
+
+.fees-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+    margin-top:40px;
+}
+
+.fee-card{
+    background:#1e2638;
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;
+    padding:30px 20px;
+    text-align:center;
+    transition:0.3s ease;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+.fee-card:hover{
+    transform:translateY(-8px);
+    border-color:#FFD54F;
+    box-shadow:0 15px 35px rgba(255,213,79,0.25);
+}
+
+.fee-card h3{
+    color:#FFD54F;
+    font-size:22px;
+    margin-bottom:15px;
+    font-weight:700;
+}
+
+.fee-card h2{
+    color:#ffffff;
+    font-size:28px;
+    margin-bottom:10px;
+    font-weight:700;
+}
+
+.fee-card p{
+    color:#cfcfcf;
+    font-size:15px;
+    margin:0;
+}
+
+.featured{
+    border:2px solid #FFD54F;
+    background:linear-gradient(135deg,#252f45,#1b2233);
+}
+
+.featured h3{
+    color:#FFD54F;
+}
+
+.featured h2{
+    color:#ffffff;
+}
 /* ==================================================
    END OF STYLE.CSS
 ================================================== */
