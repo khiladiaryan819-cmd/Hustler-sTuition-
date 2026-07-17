@@ -67,7 +67,7 @@ window.addEventListener("scroll", () => {
 
     if(!navbar) return;
 
-    if(window.scrollY > 80){
+    if(window.scrollY > 500){
 
         navbar.classList.add("sticky");
 
