@@ -60,18 +60,18 @@ window.addEventListener("scroll", () => {
    STICKY NAVBAR
 ========================================== */
 
-const navbar =
-document.querySelector(".navbar");
+const navbar = document.querySelector(".navbar");
+const hero = document.querySelector(".hero");
 
 window.addEventListener("scroll", () => {
 
-    if(!navbar) return;
+    if (!navbar || !hero) return;
 
-    if(window.scrollY > 500){
+    if (window.scrollY >= hero.offsetHeight - 100) {
 
         navbar.classList.add("sticky");
 
-    }else{
+    } else {
 
         navbar.classList.remove("sticky");
 

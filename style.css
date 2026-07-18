@@ -466,9 +466,9 @@ header.scrolled{
 
 .hero{
 
-    min-height:90vh;
+    min-height:75vh;
 
-    padding:110px 8% 50px;
+    padding:110px 8% 30px;
 
     display:flex;
 
@@ -476,7 +476,7 @@ header.scrolled{
 
     align-items:center;
 
-    gap:35px;
+    gap:20px;
 
     flex-wrap:wrap;
 
@@ -613,6 +613,7 @@ header.scrolled{
     gap:20px;
 
     flex-wrap:wrap;
+    margin-bottom:15px;
 
 }
 
@@ -627,6 +628,7 @@ header.scrolled{
     display:flex;
 
     justify-content:center;
+    margin-top:-30px;
 
     align-items:center;
 
@@ -2406,9 +2408,9 @@ display:block;
 }
 
 .hero{
-
-padding-top:130px;
-
+    min-height:auto;
+    padding:110px 6% 20px;
+    gap:15px;
 }
 
 .hero-buttons{
