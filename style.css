@@ -2192,13 +2192,32 @@ footer{
     margin-bottom:18px;
 
 }
+.footer-box{
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+.social-icons{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:18px;
+    margin-top:15px;
+}
 
 .footer-box p,
 .footer-box a{
 
     color:var(--text);
-
 }
+.footer-box p{
+    max-width:350px;
+    margin:15px auto;
+    line-height:1.8;
+    text-align:center;
+}
+
 
 .footer-box a{
 
@@ -2530,6 +2549,72 @@ padding:25px;
 
 .feature-card{
     margin:17px;
+}
+
+/* Floating Action Buttons */
+
+.floating-buttons{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    z-index:9999;
+}
+
+.float-btn{
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    color:#fff;
+    font-size:24px;
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+    transition:.3s ease;
+}
+
+.float-btn:hover{
+    transform:translateY(-5px) scale(1.08);
+}
+
+.admission{
+    background:#FFD54F;
+    color:#111;
+}
+
+.whatsapp{
+    background:#25D366;
+}
+
+.call{
+    background:#2563EB;
+}
+
+@media(max-width:768px){
+
+    .floating-buttons{
+        right:15px;
+        bottom:20px;
+    }
+
+    .float-btn{
+        width:52px;
+        height:52px;
+        font-size:22px;
+    }
+
+}
+
+.top-btn{
+    background:#0f172a;
+    color:#fff;
+    border:none;
+    cursor:pointer;
+    display:none;
 }
 /* ==================================================
    END OF STYLE.CSS
