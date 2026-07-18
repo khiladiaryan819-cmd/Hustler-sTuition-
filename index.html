@@ -1048,65 +1048,85 @@ Best tuition classes with disciplined environment and personal attention.
 <p>Join Hustler's Tuition today.</p>
 </div>
 
-<form action="https://docs.google.com/forms/d/e/1FAIpQLScXyIdWZHE-sHz0_Y3YTRjyxUOAaOSJce_YhEtd4okEH8ZNVA/formResponse"
-method="POST"
-target="_blank">
+<form id="admissionForm">
 
     <h2>Admission Form</h2>
 
-    <input type="text" 
-    name="entry.2115702648" 
-    placeholder="Student Name" 
-    required>
+    <input
+        type="text"
+        id="studentName"
+        name="studentName"
+        placeholder="Student Name"
+        required>
 
     <br><br>
 
-    <input type="text" 
-    name="entry.297078055" 
-    placeholder="Parent Name" 
-    required>
+    <input
+        type="text"
+        id="parentName"
+        name="parentName"
+        placeholder="Parent Name"
+        required>
 
     <br><br>
 
-    <input type="email" 
-    name="entry.162993194" 
-    placeholder="Email Address" 
-    required>
+    <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Email Address"
+        required>
 
     <br><br>
 
-    <input type="tel" 
-    name="entry.609356040" 
-    placeholder="Mobile Number" 
-    required>
+    <input
+        type="tel"
+        id="mobileNumber"
+        name="mobileNumber"
+        placeholder="Mobile Number"
+        required
+        pattern="[0-9]{10}"
+        maxlength="10">
 
     <br><br>
 
-    <select name="entry.1452176432" required>
+    <select
+        id="studentClass"
+        name="studentClass"
+        required>
+
         <option value="">Select Class</option>
         <option value="KG - 4th">KG - 4th</option>
         <option value="5th - 8th">5th - 8th</option>
         <option value="9th - 10th">9th - 10th</option>
         <option value="11th - 12th">11th - 12th</option>
+
     </select>
 
     <br><br>
 
-    <input type="text" 
-    name="entry.1999976478" 
-    placeholder="Board (CBSE/State Board)" 
-    required>
+    <input
+        type="text"
+        id="board"
+        name="board"
+        placeholder="Board (CBSE / State Board)"
+        required>
 
     <br><br>
 
-    <textarea 
-    name="entry.256886147" 
-    placeholder="Full Address"
-    required></textarea>
+    <textarea
+        id="address"
+        name="address"
+        placeholder="Full Address"
+        rows="4"
+        required></textarea>
 
     <br><br>
 
-    <button type="submit">
+    <button
+        type="submit"
+        id="submitBtn"
+        class="btn primary-btn">
         Apply Now
     </button>
 
