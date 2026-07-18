@@ -542,52 +542,78 @@ window.addEventListener("load", () => {
    ADMISSION FORM VALIDATION
 ========================================== */
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbyXh4OJIF4LInHs7atRzIbFaHnB-C8sk7aLPhGE3OL90HRhVnnyZu__NfL3MaJJCt9lYQ/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbz_oI3I7ObiNKeyyVelYcGdx9MbVV4fW7Fd5tNAnZ-2yq9UA4uRAVe24dYow5ArP7MVFA/exec";
 
-document.getElementById("admissionForm").addEventListener("submit", function(e) {
+
+document.getElementById("admissionForm")
+.addEventListener("submit", function(e){
 
     e.preventDefault();
 
+
     const data = {
-        studentName: document.getElementById("studentName").value,
-        parentName: document.getElementById("parentName").value,
-        email: document.getElementById("email").value,
-        mobileNumber: document.getElementById("mobileNumber").value,
-        studentClass: document.getElementById("studentClass").value,
-        board: document.getElementById("board").value,
-        address: document.getElementById("address").value
+
+        studentName:
+        document.getElementById("studentName").value,
+
+        parentName:
+        document.getElementById("parentName").value,
+
+        email:
+        document.getElementById("email").value,
+
+        mobile:
+        document.getElementById("mobileNumber").value,
+
+        className:
+        document.getElementById("studentClass").value,
+
+        board:
+        document.getElementById("board").value,
+
+        address:
+        document.getElementById("address").value
+
     };
 
+
     fetch(scriptURL, {
+
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+
         body: JSON.stringify(data)
+
     })
+
+
     .then(response => response.json())
+
+
     .then(result => {
 
-        if(result.status === "success"){
 
-            alert("🎉 Admission Form Submitted Successfully!");
+        alert("Admission Form Submitted Successfully ✅");
 
-            document.getElementById("admissionForm").reset();
 
-        } else {
+        document
+        .getElementById("admissionForm")
+        .reset();
 
-            alert("❌ " + result.message);
-
-        }
 
     })
+
+
     .catch(error => {
 
-        alert("❌ Submission Failed! Please try again.");
 
-        console.error(error);
+        alert("Submission Failed ❌");
+
+
+        console.log(error);
+
 
     });
+
 
 });
 
