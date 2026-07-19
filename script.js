@@ -351,7 +351,6 @@ window.addEventListener("load", () => {
    HERO FADE EFFECT
 ========================================== */
 
-const hero = document.querySelector(".hero");
 
 window.addEventListener("scroll", () => {
 
@@ -545,39 +544,57 @@ window.addEventListener("load", () => {
 
 const scriptURL = "https://script.google.com/macros/s/AKfycbzdtIAYiKzeqKw01MLkRq-xzLqfeSZbX4U5nDAD7vJ4ZnTqPL-74mNIE-ZQylLfYXqt_Q/exec";
 
-document.getElementById("admissionForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
+const form = document.getElementById("admissionForm");
 
-    const data = {
-        studentName: document.getElementById("studentName").value,
-        parentName: document.getElementById("parentName").value,
-        email: document.getElementById("email").value,
-        mobile: document.getElementById("mobileNumber").value,
-        className: document.getElementById("studentClass").value,
-        board: document.getElementById("board").value,
-        address: document.getElementById("address").value
-    };
+if (form) {
 
-    try {
-        const response = await fetch(scriptURL, {
-            method: "POST",
-            body: JSON.stringify(data)
-        });
+    form.addEventListener("submit", async function (e) {
 
-        const result = await response.json();
+        e.preventDefault();
 
-        if (result.status === "success") {
-            alert("Admission Form Submitted Successfully!");
-            document.getElementById("admissionForm").reset();
-        } else {
+        const data = {
+            studentName: document.getElementById("studentName").value,
+            parentName: document.getElementById("parentName").value,
+            email: document.getElementById("email").value,
+            mobile: document.getElementById("mobileNumber").value,
+            className: document.getElementById("studentClass").value,
+            board: document.getElementById("board").value,
+            address: document.getElementById("address").value
+        };
+
+        try {
+
+            const response = await fetch(scriptURL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (result.status === "success") {
+
+                alert("Admission Form Submitted Successfully!");
+                form.reset();
+
+            } else {
+
+                alert("Submission Failed");
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
             alert("Submission Failed");
+
         }
 
-    } catch (error) {
-        console.error(error);
-        alert("Submission Failed");
-    }
-});
+    });
+
+}
 /* ==========================================
    BUTTON RIPPLE EFFECT
 ========================================== */
@@ -645,21 +662,25 @@ console.log(
 
 const scrollTopBtn = document.getElementById("scrollTopBtn");
 
-window.addEventListener("scroll", function () {
+if (scrollTopBtn) {
 
-    if (window.scrollY > 300) {
-        scrollTopBtn.style.display = "flex";
-    } else {
-        scrollTopBtn.style.display = "none";
-    }
+    window.addEventListener("scroll", function () {
 
-});
+        if (window.scrollY > 300) {
+            scrollTopBtn.style.display = "flex";
+        } else {
+            scrollTopBtn.style.display = "none";
+        }
 
-scrollTopBtn.addEventListener("click", function () {
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
     });
 
-});
+    scrollTopBtn.addEventListener("click", function () {
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
+
+}
