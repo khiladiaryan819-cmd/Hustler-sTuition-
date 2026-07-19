@@ -1041,92 +1041,97 @@ Best tuition classes with disciplined environment and personal attention.
      ADMISSION FORM
 ========================= -->
 
-<section class="admission section" id="admission">
+<!-- Admission Section -->
+<section class="admission-section" id="admission">
+    <div class="section-title">
+        <h2>Admission Form</h2>
+        <p>Join Hustler's Tuition Today.</p>
+    </div>
 
-<div class="section-title">
-<h2>Admission Form</h2>
-<p>Join Hustler's Tuition today.</p>
-</div>
+    <form id="admissionForm">
 
-<form id="admissionForm">
+        <!-- Student Name -->
+        <input
+            type="text"
+            id="studentName"
+            name="studentName"
+            placeholder="Student Name"
+            required>
 
-    <h2>Admission Form</h2>
+        <br><br>
 
-    <input 
-        type="text"
-        id="studentName"
-        placeholder="Student Name"
-        required>
+        <!-- Parent Name -->
+        <input
+            type="text"
+            id="parentName"
+            name="parentName"
+            placeholder="Parent Name"
+            required>
 
-    <br><br>
+        <br><br>
 
-    <input 
-        type="text"
-        id="parentName"
-        placeholder="Parent Name"
-        required>
+        <!-- Email -->
+        <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email Address"
+            required>
 
-    <br><br>
+        <br><br>
 
-    <input 
-        type="email"
-        id="email"
-        placeholder="Email Address"
-        required>
+        <!-- Mobile Number -->
+        <input
+            type="tel"
+            id="mobileNumber"
+            name="mobileNumber"
+            placeholder="Mobile Number"
+            pattern="[0-9]{10}"
+            maxlength="10"
+            required>
 
-    <br><br>
+        <br><br>
 
-    <input 
-        type="tel"
-        id="mobileNumber"
-        placeholder="Mobile Number"
-        pattern="[0-9]{10}"
-        maxlength="10"
-        required>
+        <!-- Class -->
+        <select id="studentClass" name="studentClass" required>
+            <option value="">Select Class</option>
+            <option value="KG - 4th">KG - 4th</option>
+            <option value="5th - 8th">5th - 8th</option>
+            <option value="9th - 10th">9th - 10th</option>
+            <option value="11th - 12th">11th - 12th</option>
+        </select>
 
-    <br><br>
+        <br><br>
 
-    <select id="studentClass" required>
+        <!-- Board -->
+        <input
+            type="text"
+            id="board"
+            name="board"
+            placeholder="Board (CBSE / State Board)"
+            required>
 
-        <option value="">Select Class</option>
-        <option value="KG - 4th">KG - 4th</option>
-        <option value="5th - 8th">5th - 8th</option>
-        <option value="9th - 10th">9th - 10th</option>
-        <option value="11th - 12th">11th - 12th</option>
+        <br><br>
 
-    </select>
+        <!-- Address -->
+        <textarea
+            id="address"
+            name="address"
+            placeholder="Full Address"
+            rows="4"
+            required></textarea>
 
-    <br><br>
+        <br><br>
 
-    <input
-        type="text"
-        id="board"
-        placeholder="Board (CBSE / State Board)"
-        required>
+        <!-- Submit Button -->
+        <button
+            type="submit"
+            id="submitBtn"
+            class="btn primary-btn">
+            Apply Now
+        </button>
 
-    <br><br>
-
-    <textarea
-        id="address"
-        placeholder="Full Address"
-        rows="4"
-        required></textarea>
-
-    <br><br>
-
-    <button 
-        type="submit"
-        id="submitBtn"
-        class="btn primary-btn">
-
-        Apply Now
-
-    </button>
-
-</form>
-
-
-
+    </form>
 </section>
 
 <!-- =========================   CONCTACT
