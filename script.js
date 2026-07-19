@@ -1,3 +1,4 @@
+alert("JavaScript Loaded");
 /* ==========================================
    HUSTLER'S TUITION
    script.js
