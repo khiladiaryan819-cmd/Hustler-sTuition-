@@ -350,7 +350,6 @@ window.addEventListener("load", () => {
    HERO FADE EFFECT
 ========================================== */
 
-const hero = document.querySelector(".hero");
 
 window.addEventListener("scroll", () => {
 
@@ -585,19 +584,11 @@ document.getElementById("admissionForm").addEventListener("submit", async functi
 
         });
 
-        const result = await response.json();
+        const text = await response.text();
 
-        if(result.status=="success"){
+alert("Admission Submitted Successfully!");
 
-            alert("Admission Submitted Successfully!");
-
-            document.getElementById("admissionForm").reset();
-
-        }else{
-
-            alert(result.message);
-
-        }
+document.getElementById("admissionForm").reset();
 
     }catch(error){
 
