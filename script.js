@@ -350,6 +350,7 @@ window.addEventListener("load", () => {
    HERO FADE EFFECT
 ========================================== */
 
+const hero = document.querySelector(".hero");
 
 window.addEventListener("scroll", () => {
 
@@ -541,67 +542,40 @@ window.addEventListener("load", () => {
    ADMISSION FORM VALIDATION
 ========================================== */
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbwgAeHtzIVPEL2yIO3zG-jUxGYoz7W4BuQmWg--ntQhUeO1l-dVtmvV25jds0xeD1JGZQ/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbzdtIAYiKzeqKw01MLkRq-xzLqfeSZbX4U5nDAD7vJ4ZnTqPL-74mNIE-ZQylLfYXqt_Q/exec";
 
-document.getElementById("admissionForm").addEventListener("submit", async function(e){
-
+document.getElementById("admissionForm").addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const btn = document.getElementById("submitBtn");
-
-    btn.disabled = true;
-    btn.innerHTML = "Submitting...";
-
     const data = {
-
         studentName: document.getElementById("studentName").value,
-
         parentName: document.getElementById("parentName").value,
-
         email: document.getElementById("email").value,
-
         mobile: document.getElementById("mobileNumber").value,
-
         className: document.getElementById("studentClass").value,
-
         board: document.getElementById("board").value,
-
         address: document.getElementById("address").value
-
     };
 
-    try{
-
-        const response = await fetch(scriptURL,{
-
-            method:"POST",
-
-            headers:{
-                "Content-Type":"application/json"
-            },
-
-            body:JSON.stringify(data)
-
+    try {
+        const response = await fetch(scriptURL, {
+            method: "POST",
+            body: JSON.stringify(data)
         });
 
-        const text = await response.text();
+        const result = await response.json();
 
-alert("Admission Submitted Successfully!");
+        if (result.status === "success") {
+            alert("Admission Form Submitted Successfully!");
+            document.getElementById("admissionForm").reset();
+        } else {
+            alert("Submission Failed");
+        }
 
-document.getElementById("admissionForm").reset();
-
-    }catch(error){
-
-        alert("Server Error");
-
-        console.log(error);
-
+    } catch (error) {
+        console.error(error);
+        alert("Submission Failed");
     }
-
-    btn.disabled=false;
-
-    btn.innerHTML="Apply Now";
-
 });
 /* ==========================================
    BUTTON RIPPLE EFFECT
