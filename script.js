@@ -565,13 +565,14 @@ if (form) {
         try {
 
             const response = await fetch(scriptURL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            });
-
+    method: "POST",
+    redirect: "follow",
+    headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+    },
+    body: JSON.stringify(data)
+});
+           
             const result = await response.json();
 
             if (result.status === "success") {
