@@ -541,7 +541,6 @@ window.addEventListener("load", () => {
 /* ==========================================
    ADMISSION FORM VALIDATION
 ========================================== */
-
 const scriptURL = "https://script.google.com/macros/s/AKfycbwgAeHtzIVPEL2yIO3zG-jUxGYoz7W4BuQmWg--ntQhUeO1l-dVtmvV25jds0xeD1JGZQ/exec";
 
 const form = document.getElementById("admissionForm");
@@ -565,14 +564,14 @@ if (form) {
         try {
 
             const response = await fetch(scriptURL, {
-    method: "POST",
-    redirect: "follow",
-    headers: {
-        "Content-Type": "text/plain;charset=utf-8"
-    },
-    body: JSON.stringify(data)
-});
-           
+                method: "POST",
+                redirect: "follow",
+                headers: {
+                    "Content-Type": "text/plain;charset=UTF-8"
+                },
+                body: JSON.stringify(data)
+            });
+
             const result = await response.json();
 
             if (result.status === "success") {
@@ -582,14 +581,14 @@ if (form) {
 
             } else {
 
-                alert("Submission Failed");
+                alert("Server Error:\n\n" + result.message);
 
             }
 
         } catch (error) {
 
             console.error(error);
-            alert("Submission Failed");
+            alert("Submission Failed\n\n" + error);
 
         }
 
