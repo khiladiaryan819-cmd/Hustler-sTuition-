@@ -2146,7 +2146,16 @@ padding:25px;
 
 }
 
+.admission-section h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
 
+.admission-section p {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #666;
+}
 
 /* ===============================
    LOADER
