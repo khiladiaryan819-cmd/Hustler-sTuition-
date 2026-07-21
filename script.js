@@ -556,8 +556,8 @@ if (form) {
             studentName: document.getElementById("studentName").value,
             parentName: document.getElementById("parentName").value,
             email: document.getElementById("email").value,
-            mobile: document.getElementById("mobileNumber").value,
-            className: document.getElementById("studentClass").value,
+            mobileNumber: document.getElementById("mobileNumber").value,
+            studentClass: document.getElementById("studentClass").value,
             board: document.getElementById("board").value,
             address: document.getElementById("address").value
         };
