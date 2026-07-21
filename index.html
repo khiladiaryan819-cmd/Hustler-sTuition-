@@ -1040,7 +1040,7 @@ Best tuition classes with disciplined environment and personal attention.
 <!-- =========================
      ADMISSION FORM
 ========================= -->
-<!-- ================= Admission Section ================= -->
+
 <section id="admission" class="admission-section">
 
     <div class="container">
@@ -1048,48 +1048,58 @@ Best tuition classes with disciplined environment and personal attention.
         <h2>Admission Form</h2>
         <p>Fill the form below to apply for admission.</p>
 
-        <form id="admissionForm">
+        <form id="admissionForm" class="admission-form">
 
             <div class="form-group">
                 <label>Student Name</label>
-                <input
+                <input 
                     type="text"
                     id="studentName"
                     placeholder="Enter Student Name"
                     required>
             </div>
 
+
             <div class="form-group">
                 <label>Parent Name</label>
-                <input
+                <input 
                     type="text"
                     id="parentName"
                     placeholder="Enter Parent Name"
                     required>
             </div>
 
+
             <div class="form-group">
                 <label>Email</label>
-                <input
+                <input 
                     type="email"
                     id="email"
-                    placeholder="Enter Email"
+                    placeholder="Enter Email Address"
                     required>
             </div>
+
 
             <div class="form-group">
                 <label>Mobile Number</label>
-                <input
+                <input 
                     type="tel"
                     id="mobileNumber"
-                    placeholder="Enter Mobile Number"
+                    placeholder="Enter 10 Digit Mobile Number"
+                    maxlength="10"
                     required>
             </div>
 
+
             <div class="form-group">
                 <label>Select Class</label>
+
                 <select id="studentClass" required>
-                    <option value="">Select Class</option>
+
+                    <option value="">
+                        Select Class
+                    </option>
+
                     <option>Nursery</option>
                     <option>LKG</option>
                     <option>UKG</option>
@@ -1105,38 +1115,121 @@ Best tuition classes with disciplined environment and personal attention.
                     <option>10th</option>
                     <option>11th</option>
                     <option>12th</option>
+
                 </select>
+
             </div>
 
+
             <div class="form-group">
+
                 <label>Board</label>
-                <input
-                    type="text"
-                    id="board"
-                    placeholder="CBSE / ICSE / State Board"
-                    required>
+
+                <select id="board" required>
+
+                    <option value="">
+                        Select Board
+                    </option>
+
+                    <option>
+                        State Board
+                    </option>
+
+                    <option>
+                        CBSE
+                    </option>
+
+                    <option>
+                        ICSE
+                    </option>
+
+                </select>
+
             </div>
 
+
             <div class="form-group">
+
                 <label>Address</label>
+
                 <textarea
                     id="address"
                     rows="4"
                     placeholder="Enter Address"
                     required></textarea>
+
             </div>
 
-            <button
+
+            <button 
                 type="submit"
                 id="submitBtn">
-                Apply Now
+
+                <span id="btnText">
+                    Apply Now
+                </span>
+
+                <span id="loader" class="loader hidden">
+                </span>
+
             </button>
+
 
         </form>
 
     </div>
 
 </section>
+
+
+
+<!-- Success Popup -->
+
+<div id="successPopup" class="popup">
+
+    <div class="popup-box">
+
+        <h3>
+            🎉 Success
+        </h3>
+
+        <p>
+            Admission form submitted successfully.
+            We will contact you soon.
+        </p>
+
+        <button onclick="closePopup('successPopup')">
+            OK
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- Error Popup -->
+
+<div id="errorPopup" class="popup">
+
+    <div class="popup-box">
+
+        <h3>
+            ❌ Error
+        </h3>
+
+        <p id="errorMessage">
+            Something went wrong.
+        </p>
+
+        <button onclick="closePopup('errorPopup')">
+            OK
+        </button>
+
+    </div>
+
+</div>
+
 <!-- =========================   CONCTACT
 ============================== -->
 <section class="contact section" id="contact" >

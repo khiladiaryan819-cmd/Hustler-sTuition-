@@ -544,56 +544,335 @@ window.addEventListener("load", () => {
 
 const scriptURL = "https://script.google.com/macros/s/AKfycbxtB8IOAMnUr153ec17pPP1RW7jx4jgSax9t-rRfBqyd3BSEBk63OdQWfd14hRBbw-wYA/exec";
 
+
 const form = document.getElementById("admissionForm");
 
-if (form) {
+let lastSubmitTime = 0;
 
-    form.addEventListener("submit", async function (e) {
 
-        e.preventDefault();
 
-        const data = {
-            studentName: document.getElementById("studentName").value,
-            parentName: document.getElementById("parentName").value,
-            email: document.getElementById("email").value,
-            mobileNumber: document.getElementById("mobileNumber").value,
-            studentClass: document.getElementById("studentClass").value,
-            board: document.getElementById("board").value,
-            address: document.getElementById("address").value
-        };
+if(form){
 
-        try {
 
-            const response = await fetch(scriptURL, {
-                method: "POST",
-                redirect: "follow",
-                headers: {
-                    "Content-Type": "text/plain;charset=UTF-8"
-                },
-                body: JSON.stringify(data)
-            });
+form.addEventListener("submit", async function(e){
 
-            const result = await response.json();
 
-            if (result.status === "success") {
+    e.preventDefault();
 
-                alert("Admission Form Submitted Successfully!");
-                form.reset();
 
-            } else {
 
-                alert("Server Error:\n\n" + result.message);
+    const currentTime = Date.now();
 
-            }
 
-        } catch (error) {
 
-            console.error(error);
-            alert("Submission Failed\n\n" + error);
+    // Spam Protection
+    if(currentTime - lastSubmitTime < 10000){
+
+        showError("Please wait before submitting again.");
+
+        return;
+
+    }
+
+
+
+    lastSubmitTime = currentTime;
+
+
+
+    const studentName =
+    document.getElementById("studentName").value.trim();
+
+
+
+    const parentName =
+    document.getElementById("parentName").value.trim();
+
+
+
+    const email =
+    document.getElementById("email").value.trim();
+
+
+
+    const mobile =
+    document.getElementById("mobileNumber").value.trim();
+
+
+
+    const studentClass =
+    document.getElementById("studentClass").value;
+
+
+
+    const board =
+    document.getElementById("board").value;
+
+
+
+    const address =
+    document.getElementById("address").value.trim();
+
+
+
+
+
+    // Validation
+
+
+    if(studentName.length < 3){
+
+        showError("Please enter valid student name.");
+
+        return;
+
+    }
+
+
+
+    if(parentName.length < 3){
+
+        showError("Please enter valid parent name.");
+
+        return;
+
+    }
+
+
+
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+
+
+        showError("Please enter valid email address.");
+
+        return;
+
+    }
+
+
+
+
+    if(!/^[0-9]{10}$/.test(mobile)){
+
+
+        showError("Mobile number must be 10 digits.");
+
+        return;
+
+    }
+
+
+
+
+    if(studentClass === ""){
+
+
+        showError("Please select class.");
+
+        return;
+
+    }
+
+
+
+
+    // Loading Start
+
+
+    const submitBtn =
+    document.getElementById("submitBtn");
+
+
+    const btnText =
+    document.getElementById("btnText");
+
+
+    const loader =
+    document.getElementById("loader");
+
+
+
+    submitBtn.disabled = true;
+
+    btnText.innerText = "Submitting...";
+
+    loader.classList.remove("hidden");
+
+
+
+
+
+    const data = {
+
+
+        studentName,
+
+        parentName,
+
+        email,
+
+        mobileNumber:mobile,
+
+        studentClass,
+
+        board,
+
+        address
+
+
+    };
+
+
+
+
+
+    try{
+
+
+        const response = await fetch(scriptURL,{
+
+
+            method:"POST",
+
+
+            redirect:"follow",
+
+
+            headers:{
+
+
+                "Content-Type":
+                "text/plain;charset=UTF-8"
+
+
+            },
+
+
+            body:JSON.stringify(data)
+
+
+        });
+
+
+
+
+
+        const result =
+        await response.json();
+
+
+
+
+
+        if(result.status==="success"){
+
+
+
+            showSuccess();
+
+
+
+            form.reset();
+
+
 
         }
 
-    });
+        else{
+
+
+            showError(result.message);
+
+
+        }
+
+
+
+
+    }
+
+
+
+    catch(error){
+
+
+        console.error(error);
+
+
+        showError(
+        "Submission failed. Please try again."
+        );
+
+
+    }
+
+
+
+
+    finally{
+
+
+        submitBtn.disabled=false;
+
+
+        btnText.innerText="Apply Now";
+
+
+        loader.classList.add("hidden");
+
+
+    }
+
+
+
+});
+
+}
+
+
+
+
+// Success Popup
+
+function showSuccess(){
+
+
+    document.getElementById("successPopup")
+    .style.display="flex";
+
+
+}
+
+
+
+
+// Error Popup
+
+function showError(message){
+
+
+    document.getElementById("errorMessage")
+    .innerText=message;
+
+
+    document.getElementById("errorPopup")
+    .style.display="flex";
+
+
+}
+
+
+
+
+
+// Close Popup
+
+function closePopup(id){
+
+
+    document.getElementById(id)
+    .style.display="none";
+
 
 }
 /* ==========================================
