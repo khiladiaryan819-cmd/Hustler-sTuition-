@@ -1045,135 +1045,125 @@ Best tuition classes with disciplined environment and personal attention.
 
     <div class="container">
 
-        <h2>Admission Form</h2>
-        <p>Fill the form below to apply for admission.</p>
+        <div class="admission-header">
+            <h2>Admission Form</h2>
+            <p>Fill the form below to apply for admission.</p>
+        </div>
 
-        <form id="admissionForm" class="admission-form">
+        <form id="admissionForm" autocomplete="off">
 
             <div class="form-group">
-                <label>Student Name</label>
-                <input 
+                <label for="studentName">Student Name</label>
+                <input
                     type="text"
                     id="studentName"
+                    name="studentName"
                     placeholder="Enter Student Name"
+                    minlength="3"
+                    maxlength="50"
                     required>
             </div>
 
-
             <div class="form-group">
-                <label>Parent Name</label>
-                <input 
+                <label for="parentName">Parent Name</label>
+                <input
                     type="text"
                     id="parentName"
+                    name="parentName"
                     placeholder="Enter Parent Name"
+                    minlength="3"
+                    maxlength="50"
                     required>
             </div>
 
-
             <div class="form-group">
-                <label>Email</label>
-                <input 
+                <label for="email">Email Address</label>
+                <input
                     type="email"
                     id="email"
+                    name="email"
                     placeholder="Enter Email Address"
                     required>
             </div>
 
-
             <div class="form-group">
-                <label>Mobile Number</label>
-                <input 
+                <label for="mobileNumber">Mobile Number</label>
+                <input
                     type="tel"
                     id="mobileNumber"
+                    name="mobileNumber"
                     placeholder="Enter 10 Digit Mobile Number"
+                    pattern="[0-9]{10}"
                     maxlength="10"
+                    inputmode="numeric"
                     required>
             </div>
 
-
             <div class="form-group">
-                <label>Select Class</label>
+                <label for="studentClass">Select Class</label>
+                <select id="studentClass" name="studentClass" required>
 
-                <select id="studentClass" required>
-
-                    <option value="">
-                        Select Class
-                    </option>
+                    <option value="">Select Class</option>
 
                     <option>Nursery</option>
                     <option>LKG</option>
                     <option>UKG</option>
+
                     <option>1st</option>
                     <option>2nd</option>
                     <option>3rd</option>
                     <option>4th</option>
                     <option>5th</option>
+
                     <option>6th</option>
                     <option>7th</option>
                     <option>8th</option>
+
                     <option>9th</option>
                     <option>10th</option>
+
                     <option>11th</option>
                     <option>12th</option>
 
                 </select>
-
             </div>
 
-
             <div class="form-group">
+                <label for="board">Board</label>
 
-                <label>Board</label>
+                <select id="board" name="board" required>
 
-                <select id="board" required>
+                    <option value="">Select Board</option>
 
-                    <option value="">
-                        Select Board
-                    </option>
-
-                    <option>
-                        State Board
-                    </option>
-
-                    <option>
-                        CBSE
-                    </option>
-
-                    <option>
-                        ICSE
-                    </option>
+                    <option>State Board</option>
+                    <option>CBSE</option>
+                    <option>ICSE</option>
 
                 </select>
-
             </div>
 
-
             <div class="form-group">
-
-                <label>Address</label>
+                <label for="address">Address</label>
 
                 <textarea
                     id="address"
+                    name="address"
                     rows="4"
-                    placeholder="Enter Address"
+                    placeholder="Enter Your Full Address"
                     required></textarea>
-
             </div>
 
-
-            <button 
-                type="submit"
-                id="submitBtn">
+            <button type="submit" id="submitBtn">
 
                 <span id="btnText">
                     Apply Now
                 </span>
 
-                <span id="loader" class="loader hidden">
+                <span id="loader" style="display:none;">
+                    ⏳ Submitting...
                 </span>
 
             </button>
-
 
         </form>
 
@@ -1181,55 +1171,56 @@ Best tuition classes with disciplined environment and personal attention.
 
 </section>
 
-
-
 <!-- Success Popup -->
 
 <div id="successPopup" class="popup">
 
-    <div class="popup-box">
+    <div class="popup-content">
 
-        <h3>
-            🎉 Success
-        </h3>
+        <div class="popup-icon success">
+            ✅
+        </div>
+
+        <h3>Admission Submitted</h3>
 
         <p>
-            Admission form submitted successfully.
+            Thank you for applying to
+            <strong>Hustler's Tuition</strong>.
             We will contact you soon.
         </p>
 
-        <button onclick="closePopup('successPopup')">
+        <button id="successBtn">
             OK
         </button>
 
     </div>
 
 </div>
-
-
 
 <!-- Error Popup -->
 
 <div id="errorPopup" class="popup">
 
-    <div class="popup-box">
+    <div class="popup-content">
 
-        <h3>
-            ❌ Error
-        </h3>
+        <div class="popup-icon error">
+            ❌
+        </div>
+
+        <h3>Submission Failed</h3>
 
         <p id="errorMessage">
             Something went wrong.
+            Please try again.
         </p>
 
-        <button onclick="closePopup('errorPopup')">
-            OK
+        <button id="errorBtn">
+            Close
         </button>
 
     </div>
 
 </div>
-
 <!-- =========================   CONCTACT
 ============================== -->
 <section class="contact section" id="contact" >

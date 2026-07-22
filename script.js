@@ -542,337 +542,172 @@ window.addEventListener("load", () => {
    ADMISSION FORM VALIDATION
 ========================================== */
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbykqZsCZXsUhxi5YCvoYIgYlu7R2Cw0ilwJ1oTF110byDJ4cL0TTkqxLzb4jgc5zpZJZw/exec";
-
+const scriptURL =
+"https://script.google.com/macros/s/AKfycbzsTfi-xiUVbchfiCWUULmxXKEdVVfCe69nRgtuzxggCf3zPIKl2tp_aAxbz4BjhQQX/exec";
 
 const form = document.getElementById("admissionForm");
+const submitBtn = document.getElementById("submitBtn");
+const btnText = document.getElementById("btnText");
+const loader = document.getElementById("loader");
 
-let lastSubmitTime = 0;
-
-
+const successPopup = document.getElementById("successPopup");
+const errorPopup = document.getElementById("errorPopup");
+const successBtn = document.getElementById("successBtn");
+const errorBtn = document.getElementById("errorBtn");
+const errorMessage = document.getElementById("errorMessage");
 
 if(form){
 
+form.addEventListener("submit",submitForm);
 
-form.addEventListener("submit", async function(e){
+}
 
+async function submitForm(e){
 
-    e.preventDefault();
+e.preventDefault();
 
+const studentName =
+document.getElementById("studentName").value.trim();
 
+const parentName =
+document.getElementById("parentName").value.trim();
 
-    const currentTime = Date.now();
+const email =
+document.getElementById("email").value.trim();
 
+const mobileNumber =
+document.getElementById("mobileNumber").value.trim();
 
+const studentClass =
+document.getElementById("studentClass").value;
 
-    // Spam Protection
-    if(currentTime - lastSubmitTime < 10000){
+const board =
+document.getElementById("board").value;
 
-        showError("Please wait before submitting again.");
+const address =
+document.getElementById("address").value.trim();
 
-        return;
 
-    }
 
+if(studentName.length<3){
 
+showError("Student Name is too short.");
+return;
 
-    lastSubmitTime = currentTime;
+}
 
+if(parentName.length<3){
 
+showError("Parent Name is too short.");
+return;
 
-    const studentName =
-    document.getElementById("studentName").value.trim();
+}
 
+if(!/^[0-9]{10}$/.test(mobileNumber)){
 
+showError("Enter a valid 10 digit mobile number.");
+return;
 
-    const parentName =
-    document.getElementById("parentName").value.trim();
+}
 
+const data={
 
+studentName,
+parentName,
+email,
+mobileNumber,
+studentClass,
+board,
+address
 
-    const email =
-    document.getElementById("email").value.trim();
+};
 
+submitBtn.disabled=true;
 
+btnText.style.display="none";
+loader.style.display="inline";
 
-    const mobile =
-    document.getElementById("mobileNumber").value.trim();
+try{
 
+const response=await fetch(scriptURL,{
 
+method:"POST",
 
-    const studentClass =
-    document.getElementById("studentClass").value;
+headers:{
 
+"Content-Type":"text/plain;charset=UTF-8"
 
+},
 
-    const board =
-    document.getElementById("board").value;
-
-
-
-    const address =
-    document.getElementById("address").value.trim();
-
-
-
-
-
-    // Validation
-
-
-    if(studentName.length < 3){
-
-        showError("Please enter valid student name.");
-
-        return;
-
-    }
-
-
-
-    if(parentName.length < 3){
-
-        showError("Please enter valid parent name.");
-
-        return;
-
-    }
-
-
-
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-
-
-        showError("Please enter valid email address.");
-
-        return;
-
-    }
-
-
-
-
-    if(!/^[0-9]{10}$/.test(mobile)){
-
-
-        showError("Mobile number must be 10 digits.");
-
-        return;
-
-    }
-
-
-
-
-    if(studentClass === ""){
-
-
-        showError("Please select class.");
-
-        return;
-
-    }
-
-
-
-
-    // Loading Start
-
-
-    const submitBtn =
-    document.getElementById("submitBtn");
-
-
-    const btnText =
-    document.getElementById("btnText");
-
-
-    const loader =
-    document.getElementById("loader");
-
-
-
-    submitBtn.disabled = true;
-
-    btnText.innerText = "Submitting...";
-
-    loader.classList.remove("hidden");
-
-
-
-
-
-    const data = {
-
-
-        studentName,
-
-        parentName,
-
-        email,
-
-        mobileNumber:mobile,
-
-        studentClass,
-
-        board,
-
-        address
-
-
-    };
-
-
-
-
-
-    try{
-
-
-        const response = await fetch(scriptURL,{
-
-
-            method:"POST",
-
-
-            redirect:"follow",
-
-
-            headers:{
-
-
-                "Content-Type":
-                "text/plain;charset=UTF-8"
-
-
-            },
-
-
-            body:JSON.stringify(data)
-
-
-        });
-
-
-
-
-
-        const result =
-        await response.json();
-
-
-
-
-
-        if(result.status==="success"){
-
-
-
-            showSuccess();
-
-
-
-            form.reset();
-
-
-
-        }
-
-        else{
-
-
-            showError(result.message);
-
-
-        }
-
-
-
-
-    }
-
-
-
-    catch(error){
-
-
-        console.error(error);
-
-
-        showError(
-        "Submission failed. Please try again."
-        );
-
-
-    }
-
-
-
-
-    finally{
-
-
-        submitBtn.disabled=false;
-
-
-        btnText.innerText="Apply Now";
-
-
-        loader.classList.add("hidden");
-
-
-    }
-
-
+body:JSON.stringify(data)
 
 });
 
-}
+const result=await response.json();
 
+if(result.status==="success"){
 
+form.reset();
 
+successPopup.style.display="flex";
 
-// Success Popup
+}else{
 
-function showSuccess(){
-
-
-    document.getElementById("successPopup")
-    .style.display="flex";
-
+showError(result.message);
 
 }
 
+}
 
+catch(err){
 
+showError("Unable to connect to server.");
 
-// Error Popup
+console.error(err);
+
+}
+
+submitBtn.disabled=false;
+
+btnText.style.display="inline";
+
+loader.style.display="none";
+
+}
 
 function showError(message){
 
+errorMessage.innerText=message;
 
-    document.getElementById("errorMessage")
-    .innerText=message;
-
-
-    document.getElementById("errorPopup")
-    .style.display="flex";
-
+errorPopup.style.display="flex";
 
 }
 
+successBtn.onclick=function(){
 
+successPopup.style.display="none";
 
+}
 
+errorBtn.onclick=function(){
 
-// Close Popup
+errorPopup.style.display="none";
 
-function closePopup(id){
+}
 
+window.onclick=function(e){
 
-    document.getElementById(id)
-    .style.display="none";
+if(e.target===successPopup){
 
+successPopup.style.display="none";
+
+}
+
+if(e.target===errorPopup){
+
+errorPopup.style.display="none";
+
+}
 
 }
 /* ==========================================
