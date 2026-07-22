@@ -542,7 +542,7 @@ window.addEventListener("load", () => {
    ADMISSION FORM VALIDATION
 ========================================== */
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbzsTfi-xiUVbchfiCWUULmxXKEdVVfCe69nRgtuzxggCf3zPIKl2tp_aAxbz4BjhQQX/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbykqZsCZXsUhxi5YCvoYIgYlu7R2Cw0ilwJ1oTF110byDJ4cL0TTkqxLzb4jgc5zpZJZw/exec";
 
 
 const form = document.getElementById("admissionForm");
