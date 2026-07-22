@@ -278,7 +278,7 @@ header.scrolled{
     justify-content:space-between;
     align-items:center;
     transition:.4s;
-   position: relative;
+    position: relative;
 }
 
 .logo{
@@ -409,7 +409,8 @@ header.scrolled{
         display:block;
 
     }
-   .menu-btn{
+
+    .menu-btn{
     display:block;
 }
 
@@ -447,11 +448,7 @@ header.scrolled{
     display:none;
 }
 
-    .nav-buttons{
-
-        display:none;
-
-    }
+    
 
 }
 /* ==================================================
@@ -2945,6 +2942,31 @@ padding:25px;
     border:none;
     cursor:pointer;
     display:none;
+}
+
+
+
+
+
+@media(max-width:768px){
+
+    .hero{
+        padding-bottom:70px;
+    }
+
+    .hero-buttons{
+        margin-bottom:40px;
+    }
+
+    .hero-image{
+        margin-top:35px;
+    }
+
+    .why-section,
+    #why{
+        margin-top:40px;
+    }
+
 }
 /* ==================================================
    END OF STYLE.CSS
