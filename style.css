@@ -2726,41 +2726,6 @@ footer hr{
 }
 
 
-/* ==================================================
-   BACK TO TOP
-================================================== */
-
-#topBtn{
-
-    position:fixed;
-
-    left:25px;
-    bottom:30px;
-
-    width:55px;
-    height:55px;
-
-    border:none;
-    border-radius:50%;
-
-    background:var(--accent);
-    color:black;
-
-    cursor:pointer;
-
-    display:none;
-
-    z-index:999;
-
-    transition:.35s;
-
-}
-
-#topBtn:hover{
-
-    transform:translateY(-8px);
-
-}
 
 
 /* ==================================================
